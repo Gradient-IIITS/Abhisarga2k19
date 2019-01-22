@@ -1,0 +1,18 @@
+<form method="post" action="{% url 'UserAuth:user_registration' %}">
+	{% csrf_token %}
+	<label>First Name :</label>
+	<input type="text" name="first_name">
+	<label>Last Name :</label>
+	<input type="text" name="last_name"><br>
+	<label>Email :</label>
+	<input type="text" name="email"><br>
+	<label>Mobile No :</label>
+	<input type="text" name="mobile_no"><br>
+	<label>College Name :</label>
+	<input type="text" name="college_name"><br>
+	<label>Description :</label>
+	<input type="text" name="description"><br>
+	<label>Password :</label>
+	<input type="text" name="password"><br>
+	<button type="submit">Register Yourself</button>
+</form>
