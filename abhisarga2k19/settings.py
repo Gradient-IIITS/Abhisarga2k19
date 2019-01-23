@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'UserAuth',
 ]
 
@@ -63,10 +64,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+ # 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+ # 'social_core.backends.google.GoogleOpenId',  # for Google authentication
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ # 'social_core.backends.github.GithubOAuth2',  # for Github authentication
+ 'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+ 
+ 'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '418187496105-29lst9u6iedpig56mi5t23ohoru4m3vm.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'lpTLW5Pw6QZ9N6zHd_9L2rMI'
+
+# LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'UserAuth:user_login'
 
 AUTH_USER_MODEL = 'UserAuth.User'
 WSGI_APPLICATION = 'abhisarga2k19.wsgi.application'

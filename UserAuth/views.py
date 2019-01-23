@@ -9,6 +9,10 @@ from django.contrib.auth import authenticate, login, logout
 from .models import User
 # Create your views here.
 
+def home(request):
+	home_page = 'UserAuth/home_page.html'
+	return render(request, home_page)
+
 class UserRegistrationView(View):
 	signup_template = 'UserAuth/signup.html'
 	account_confirmation_page = 'UserAuth/account_confirmation_page.html'
