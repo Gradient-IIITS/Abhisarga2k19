@@ -1,0 +1,160 @@
+{% extends 'UserAuth/index.html' %}
+{% load staticfiles %}
+{% block page-title %}
+<title>ABHISARGA 2K19</title>
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/objects.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
+<script src="{% static 'js/menu.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="back">
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+    </div>
+		<div id="bar">
+			<img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo">
+			<div id="menu" onclick="menuopen()">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div id="register">
+				<img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+				<a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
+				<img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+			</div>
+			<div id="login">
+				<img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+				<a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
+				<img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+			</div>
+		</div>
+    <div class="container" id="poster">
+      <img class="obj" id="diamond" src="{% static 'assets/img/svg/diamond.svg' %}" alt="">
+      <img class="obj" id="bead1" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead2" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <div id="logo">
+        <img src="img/logo-min.png" alt="Abhisarga Logo">
+      </div>
+      <div id="heading">
+        <h1>Celebrating</h1>
+        <h1>Creativity</h1>
+        <p>Join us for a plethora of exciting events and unlimited entertainment.</p>
+      </div>
+    </div>
+    <div class="container" id="about">
+      <img class="obj" id="rhombus" src="{% static 'assets/img/svg/rhombus.svg' %}" alt="">
+      <img class="obj" id="camera" src="{% static 'assets/img/svg/camera.svg' %}" alt="">
+      <img class="obj" id="triangle" src="{% static 'assets/img/svg/triangle.svg' %}" alt="">
+      <img class="obj" id="circle" src="{% static 'assets/img/svg/circle.svg' %}" alt="">
+      <img class="obj" id="guitar" src="{% static 'assets/img/svg/guitar.svg' %}" alt="">
+      <img class="obj" id="microphone" src="{% static 'assets/img/svg/microphone.svg' %}" alt="">
+      <img class="obj" id="bead3" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead4" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead5" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead6" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <div id="aboutus">
+        About Us
+        <hr align="left" width="40%">
+      </div>
+      <div id="desc">
+				<div id="electric" class="tags">
+					ELECTRIC
+				</div>
+				<div id="ecstacy" class="tags">
+					ECSTACY
+				</div>
+				<div id="thrill" class="tags">
+					THRILL
+				</div>
+				<div id="fun" class="tags">
+					FUN
+				</div>
+        Abhisarga is the annual cultural fest of IIITS. In it's 3<sup>rd</sup> year the fest is growing beyond the exponential, attracting crowd from across India.
+        From power packed performances to every chance to showcase your skills and of course the food you would want to try again and again. We assure you won't return disappointed.
+      </div>
+    </div>
+    <div class="container" id="events">
+			<img class="obj" id="bead7" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead8" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead9" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+      <img class="obj" id="bead10" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+			<img class="obj" id="bead11" src="{% static 'assets/img/svg/bead.svg' %}" alt="">
+			<div id="eventhead">
+				Events
+				<hr align="left" width="40%">
+			</div>
+			<div id="eventcards">
+				<div class="eventcards">
+					<img src="{% static 'assets/img/events/dance.jpg' %}" alt="Dance">
+					<div class="shadow"></div>
+					<h1>Dance</h1>
+					<p>Forget everything else and feel completely exhilirated as you sway to the beats and watch others too.</p>
+					<ul>
+						<li>+ &nbsp; &nbsp; Foot Loose</li>
+						<li>+ &nbsp; &nbsp; Street Play</li>
+					</ul>
+				</div>
+				<div class="eventcards">
+					<img src="{% static 'assets/img/events/egames.jpg' %}" alt="E-Games">
+					<div class="shadow"></div>
+					<h1>E-Games</h1>
+					<p>Battle out what you have been doing all those gaming nights and win some real trophies.</p>
+					<ul>
+						<li>+ &nbsp; &nbsp; CS - GO</li>
+						<li>+ &nbsp; &nbsp; DOTA 2</li>
+					</ul>
+				</div>
+				<div class="eventcards">
+					<img src="{% static 'assets/img/events/music.jpg' %}" alt="Music">
+					<div class="shadow"></div>
+					<h1>Music</h1>
+					<p>Where words fail, music speaks. It's the movement of sound to reach the soul for the education of its virtue.</p>
+					<ul>
+						<li>+ &nbsp; &nbsp; Rap Battle</li>
+					</ul>
+				</div>
+				<div class="eventcards">
+					<img src="{% static 'assets/img/events/concerts.jpg' %}" alt="Concerts">
+					<div class="shadow"></div>
+					<h1>Concerts</h1>
+					<p>Let the electricity of the stage flow into you. Where else would you get this chance??!!!</p>
+					<ul>
+						<li>+ &nbsp; &nbsp; Battle of Bands</li>
+					</ul>
+				</div>
+				<div class="eventcards">
+					<img src="{% static 'assets/img/events/literature.jpg' %}" alt="Literature">
+					<div class="shadow"></div>
+					<h1>Literature</h1>
+					<p>Literature Lover? Writer? Critique? Quizzer? We've got you covered.</p>
+					<ul>
+						<li>+ &nbsp; &nbsp; Debate</li>
+						<li>+ &nbsp; &nbsp; Quiz</li>
+					</ul>
+				</div>
+				<div class="eventcards">
+					<img src="{% static 'assets/img/events/artandcraft.jpg' %}" alt="Art & Craft">
+					<div class="shadow"></div>
+					<h1>Art & Craft</h1>
+					<p>This world is but a canvas to our imagination. Come and take this opportunity to paint yours.</p>
+					<ul>
+						<li>+ &nbsp; &nbsp; Canvas Painting</li>
+						<li>+ &nbsp; &nbsp; Face Painting</li>
+						<li>+ &nbsp; &nbsp; Origami</li>
+					</ul>
+				</div>
+			</div>
+			<div id="button">
+				<a href="#">Explore More</a>
+			</div>
+    </div>
+{% endblock %}

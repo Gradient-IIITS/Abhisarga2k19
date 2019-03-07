@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('UserAuth.urls')),
+    path(r'event/', include('Event.urls')),
     # url(r'^auth/', include('social_django.urls', namespace='social')),
     url(r'^api-token-auth/', obtain_jwt_token),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

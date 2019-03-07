@@ -20,7 +20,7 @@ class Event(models.Model):
 	prize = models.TextField()
 	brochure = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
 	organisers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="organising_events")
-	volunteers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="volunteering_events")
+	#volunteers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="volunteering_events")
 	web_priority = models.IntegerField(default=0)
 	app_priority = models.IntegerField(default=0)
 	registration_closed = models.BooleanField(default=False)

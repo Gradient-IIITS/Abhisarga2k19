@@ -1,0 +1,327 @@
+@font-face {
+  font-family: 'Content';
+  font-weight: bold;
+  src: url("fonts/Anodina-ExtraBold.otf") format("opentype");
+}
+@font-face {
+  font-family: 'Headings';
+  font-weight: bold;
+  src: url("fonts/overpass-heavy.otf") format("opentype");
+}
+@font-face {
+  font-family: 'Tags';
+  font-weight: bold;
+  src: url("fonts/BebasNeue-Regular.ttf") format("truetype");
+}
+html{
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Content', sans-serif;
+}
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+div{
+  padding: 0;
+  margin: 0;
+}
+a{
+  text-decoration: none;
+  color: #fff;
+}
+.back{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #05010b;
+  display: flex;
+  justify-content: space-around;
+}
+.stripe{
+  height: 100%;
+  width: 0.2vw;
+  background-color: #232323;
+}
+.container{
+  width: 100%;
+  position: relative;
+}
+#poster{
+  height: 50vw;
+}
+#logo{
+  position: absolute;
+  top: 0;
+  left: 50vw;
+  height: 30vw;
+  width: 50vw;
+}
+#logo img{
+  position: absolute;
+  top: 0;
+  height: 85%;
+  width: 100%;
+}
+#heading{
+  top: 10vw;
+  left: 5vw;
+  height: 40vw;
+  width: 45vw;
+  font-size: 3.5vw;
+  position: absolute;
+}
+#heading h1{
+  color: #fff;
+  font-size: 1.8em;
+  margin: 0;
+  padding: 0;
+  font-family: 'Headings', sans-serif;
+}
+#heading p{
+  margin: 0;
+  padding: 0.25em;
+  color: rgba(0,0,0,0);
+  text-stroke: 0.04em #fff;
+  -webkit-text-stroke: 0.04em #fff;
+  text-align: center;
+}
+#about{
+  height: 75vw;
+  font-size: 5vw;
+}
+#aboutus{
+  position: relative;
+  top: 1.3em;
+  left: 1.2em;
+  color: #fff;
+  width: 8em;
+  height: 1.2em;
+  font-weight: bolder;
+  font-family: 'Headings', sans-serif;
+}
+hr{
+  height: 0.1em;
+  background-color: #fff;
+  margin: 0;
+  border: 0;
+}
+#desc{
+  position: relative;
+  top: 5em;
+  left: 2em;
+  width: 20em;
+  height: 10em;
+  font-size: 0.5em;
+  font-weight: bold;
+  color: #fff;
+  text-align: justify;
+}
+.tags{
+  position: absolute;
+  font-size: 2.3em;
+  font-weight: bolder;
+  width: 100%;
+  text-align: center;
+  height: 2em;
+  font-family: 'Tags', sans-serif;
+}
+#electric{
+  top: -0.6em;
+  left: -3.1em;
+  color: rgba(31,58,230,0.29);
+}
+#ecstacy{
+  bottom: 0.8em;
+  left: -5em;
+  transform: rotate(90deg);
+  color: rgba(192,44,121,0.45);
+}
+#thrill{
+  top: 1.4em;
+  left: 5em;
+  transform: rotate(-90deg);
+  color: rgba(208,72,72,0.37);
+}
+#fun{
+  bottom: -0.6em;
+  transform: rotate(180deg);
+  color: rgba(45,213,105,0.4);
+}
+#events{
+  font-size: 5vw;
+  padding-bottom: 1em;
+}
+#eventhead{
+  position: relative;
+  left: 1.2em;
+  margin-bottom: 1.5em;
+  color: #fff;
+  width: 6.5em;
+  height: 1.2em;
+  font-weight: bolder;
+  font-family: 'Headings', sans-serif;
+}
+#eventcards{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.eventcards{
+  width: 25vw;
+  height: 33vw;
+  font-size: 0.4em;
+  margin: 1.5em 1em;
+  color: #fff;
+  background-color: #f00;
+  position: relative;
+}
+.eventcards h1{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -0.8em;
+  font-size: 1.6em;
+  right: 0.4em;
+}
+.eventcards img{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(0.5px);
+}
+.eventcards .shadow{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to bottom, #2de173, #0847fc);
+  opacity: 0.6;
+}
+.eventcards p{
+  position: relative;
+  margin-bottom: 2.5em;
+  font-weight: bold;
+  text-align: justify;
+  margin: 0 0.2em;
+}
+.eventcards ul{
+  line-height: 1.5em;
+  position: relative;
+  font-weight: bold;
+  list-style: none;
+}
+#button{
+  font-size: 0.4em;
+  text-align: center;
+  padding: 0.1em;
+  margin: 1em auto 0;
+  border: 0.1em solid #fff;
+  height: 1.4em;
+  width: 6.5em;
+}
+
+@media (min-width: 768px) and (max-width: 1024px){
+  .stripe{
+    width: 0.3vw;
+  }
+  #poster{
+    height: 65vw;
+  }
+  #logo{
+    top: 0;
+    width: 55vw;
+    left: 45vw;
+    height: 40vw;
+  }
+  #heading{
+    top: 15vw;
+    left: 5vw;
+    height: 50vw;
+    width: 45vw;
+    font-size: 4.2vw;
+  }
+  #about{
+    height: 80vw;
+    font-size: 6vw;
+  }
+  #events{
+    font-size: 6.5vw;
+  }
+  .eventcards{
+    width: 35vw;
+    height: 45vw;
+  }
+}
+@media (min-width: 481px) and (max-width: 767px){
+  .stripe{
+    width: 0.4vw;
+  }
+  #poster{
+    height: 90vw;
+  }
+  #logo{
+    top: 0;
+    width: 80vw;
+    left: 10vw;
+    height: 45vw;
+  }
+  #heading{
+    top: 45vw;
+    left: 10vw;
+    height: 45vw;
+    width: 75vw;
+    font-size: 5vw;
+  }
+  #about{
+    height: 85vw;
+    font-size: 6.5vw;
+  }
+  #events{
+    font-size: 8vw;
+  }
+  .eventcards{
+    width: 40vw;
+    height: 50vw;
+  }
+}
+@media (max-width: 480px){
+  .stripe{
+    width: 0.5vw;
+  }
+  #poster{
+    height: 110vw;
+  }
+  #logo{
+    top: 0;
+    width: 100vw;
+    left: 0;
+    height: 55vw;
+  }
+  #heading{
+    top: 55vw;
+    left: 10vw;
+    height: 55vw;
+    width: 90vw;
+    font-size: 5.5vw;
+  }
+  #about{
+    height: 95vw;
+    font-size: 8vw;
+  }
+  #events{
+    font-size: 10vw;
+  }
+  .eventcards{
+    width: 60vw;
+    height: 70vw;
+  }
+}

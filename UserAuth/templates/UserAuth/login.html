@@ -1,0 +1,58 @@
+{% extends 'UserAuth/index.html' %}
+{% load staticfiles %}
+{% block page-title %}
+	<title>Login | Abhisarga 2k19</title>
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
+<script src="{% static 'assets/js/menu.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="bar">
+      <img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo">
+      <div id="menu" onclick="menuopen()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="register">
+        <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+        <a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
+        <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+      </div>
+      <div id="login">
+        <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+        <a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
+        <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+      </div>
+    </div>
+		<div id="formholder">
+			<img class="obj" id="triangle" src="{% static 'assets/img/svg/triangle.svg' %}" alt="">
+      <img class="obj" id="circle" src="{% static 'assets/img/svg/circle.svg' %}" alt="">
+      <img class="obj" id="rhombus" src="{% static 'assets/img/svg/rhombus.svg' %}" alt="">
+      <div id="formlogo">
+        <img src="{% static 'assets/img/logo-min.png' %}" alt="Abhisarga 2019">
+      </div>
+      <div id="formdiv">
+        <form action="{% url 'UserAuth:user_login' %}" method="post">
+        	{% csrf_token %}
+          <div>
+            <label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email" required="">
+          </div>
+          <br>
+          <div>
+            <label for="password"><img src="{% static 'assets/img/svg/password.svg' %}" alt=""></label><input type="password" placeholder="Password" name="password" required="">
+          </div>
+          <br>
+          <div>
+            <button type="submit">Login</button>
+          </div>
+          <br>
+          <span>Not Registered Yet? <a href="{% url 'UserAuth:user_registration' %}">Register here</a></span>
+        </form>
+      </div>
+    </div>
+{% endblock %}

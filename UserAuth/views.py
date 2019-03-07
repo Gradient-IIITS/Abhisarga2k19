@@ -10,11 +10,11 @@ from .models import User
 # Create your views here.
 
 def home(request):
-	home_page = 'UserAuth/home_page.html'
+	home_page = 'UserAuth/main.html'
 	return render(request, home_page)
 
 class UserRegistrationView(View):
-	signup_template = 'UserAuth/signup.html'
+	signup_template = 'UserAuth/register.html'
 	account_confirmation_page = 'UserAuth/account_confirmation_page.html'
 
 	def get(self, request, *args, **kwargs):
@@ -29,25 +29,31 @@ class UserRegistrationView(View):
 		description = request.POST.get('description')
 		password = request.POST.get('password')
 
-		user = User()
-		user.username = email.split('@')[0]
-		user.first_name = first_name
-		user.last_name = last_name
-		user.email = email
-		user.mobile_no = mobile_no
-		user.college_name = college_name
-		user.description = description
-		user.set_password(password)
-		user.save()
+		if password:
+			try:
+				user = User()
+				user.username = email.split('@')[0]
+				user.first_name = first_name
+				user.last_name = last_name
+				user.email = email
+				user.mobile_no = mobile_no
+				user.college_name = college_name
+				user.description = description
+				user.set_password(password)
+				user.save()
 
-		send_account_activation_url(request, user.username)
-		return render(request, self.account_confirmation_page)
+				send_account_activation_url(request, user.username)
+				return render(request, self.account_confirmation_page)
+			except Exception as e:
+				print(e)
+				return render(request, self.signup_template, {"message":"User is already registered."})
+		return render(request, self.signup_template, {"message":"Something went wrong."})
 
 
 class UserLoginView(View):
-	signin_template = 'UserAuth/signin.html'
+	signin_template = 'UserAuth/login.html'
 	account_confirmation_page = 'UserAuth/account_confirmation_page.html'
-	homepage = 'UserAuth/homepage.html'
+	homepage = 'Event/events.html'
 
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated:
