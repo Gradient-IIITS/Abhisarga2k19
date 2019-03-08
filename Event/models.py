@@ -6,7 +6,15 @@ from django.db import models
 def get_event_photo_path(instance, filename):
 	return "Event/{0}/{1}".format(instance.name, filename)
 
+class EventCategory(models.Model):
+	category = models.CharField(max_length=100, null=True, blank=True)
+	description = models.TextField()
+
+	def __str__(self):
+		return self.category
+
 class Event(models.Model):
+	event_category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, related_name="event_category")
 	name = models.CharField(max_length=200, null=True, blank=True)
 	logo = models.ImageField(upload_to=get_event_photo_path, null=True, blank=True)
 	registration_from = models.DateTimeField(null=True, blank=True)
