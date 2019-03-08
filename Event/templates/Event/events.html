@@ -21,25 +21,25 @@
 			</div>
 			{% if request.user.is_authenticated %}
 			<div id="login">
-				<img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
 				<a href="{% url 'UserAuth:logout' %}">Log Out</a>
-				<img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
 			</div>
 			<div id="register">
-				<img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
 				<a href="javascript:function()">Profile</a>
-				<img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
 			</div>
 			{% else %}
 			<div id="register">
-				<img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
 				<a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
-				<img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
 			</div>
 			<div id="login">
-				<img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
 				<a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
-				<img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt="">
+				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
 			</div>
 			{% endif %}
 		</div>
