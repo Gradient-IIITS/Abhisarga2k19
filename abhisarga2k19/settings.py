@@ -25,7 +25,8 @@ SECRET_KEY = '_1fg4p3(v0f6+ey-utkhzsgjy$w!ucpy9!%qpslnvl7(h-@2c1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.0.52.83',
+                'abhisarga.iiits.in']
 
 
 # Application definition
@@ -104,6 +105,16 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'abhisarga',
+        'USER': 'root',
+        'PASSWORD': 'abhisarga',
+        'HOST': 'localhost',
+        'PORT': 3306,
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
