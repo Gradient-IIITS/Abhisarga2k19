@@ -12,5 +12,8 @@ from .models import EventCategory, Event
 def event(request):
 	event_template = 'Event/events.html'
 	event_cat = EventCategory.objects.all()
-	events = Event.objects.all()
-	return render(request, event_template, {"event_category":event_cat, "events":events})
+	all_events = list()
+	for _ in event_cat:
+		events = Event.objects.filter(event_category__id=_.id)
+		all_events.append({"category":_, "events":events})
+	return render(request, event_template, {"event_category":event_cat, "all_events":all_events})
