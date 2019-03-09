@@ -26,4 +26,6 @@ urlpatterns = [
     path(r'event/', include('Event.urls')),
     # url(r'^auth/', include('social_django.urls', namespace='social')),
     url(r'^api-token-auth/', obtain_jwt_token),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
