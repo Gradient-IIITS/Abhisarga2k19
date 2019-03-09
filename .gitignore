@@ -1,1 +1,4 @@
 */migrations
+media
+*.pyc
+db.sqlite3
