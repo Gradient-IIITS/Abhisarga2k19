@@ -45,12 +45,9 @@
 		</div>
     <div id="select-list">
 			<select id="eventselect" onchange="changecontent()">
-				<option value="0">Dance & Music</option>
-				<option value="1">Literary</option>
-				<option value="2">Fine Arts</option>
-				<option value="3">Gaming</option>
-				<option value="4">Online</option>
-				<option value="5">Informal</option>
+				{% for category in event_category %}
+				<option value="{{forloop.counter0}}">{{category.category}}</option>
+				{% endfor %}
 			</select>
 			<img src="{% static 'assets/img/arrow.png' %}" alt="">
     </div>

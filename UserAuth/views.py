@@ -7,11 +7,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import authenticate, login, logout
 
 from .models import User
+from Event.models import Event, EventCategory
 # Create your views here.
 
 def home(request):
 	home_page = 'UserAuth/main.html'
-	return render(request, home_page)
+	event_cat = EventCategory.objects.all()
+	events = Event.objects.all()
+	return render(request, home_page, {"event_category":event_cat, "events":events})
 
 class UserRegistrationView(View):
 	signup_template = 'UserAuth/register.html'
