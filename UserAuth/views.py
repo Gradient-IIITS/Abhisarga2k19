@@ -60,7 +60,7 @@ class UserLoginView(View):
 
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated:
-			return render(request, self.homepage)
+			return HttpResponseRedirect(reverse('Event:events'))
 		return render(request, self.signin_template)
 
 	def post(self, request, *args, **kwargs):
