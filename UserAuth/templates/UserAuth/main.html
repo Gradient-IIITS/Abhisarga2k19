@@ -98,7 +98,7 @@
 					<img src="{% static 'assets/img/events/dance.jpg' %}" alt="Dance">
 					<div class="shadow"></div>
 					<h1>{{ category.category }}</h1>
-					<p>{{ description }}</p>
+					<p>{{ category.description }}</p>
 					<ul>
 						{% for event in events %}{% if event.event_category.id == category.id %}
 						<li>+ &nbsp; &nbsp; {{ event.name }}</li>

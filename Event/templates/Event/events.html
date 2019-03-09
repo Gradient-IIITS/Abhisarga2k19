@@ -118,12 +118,11 @@
     
     <div id="listnav">
       <ul>
-        <li class="nav-link active-link" value="0" onclick="changeselect(this)">Dance & Music<hr></li>
-        <li class="nav-link" value="1" onclick="changeselect(this)">Literary<hr></li>
-        <li class="nav-link" value="2" onclick="changeselect(this)">Fine Arts<hr></li>
-        <li class="nav-link" value="3" onclick="changeselect(this)">Gaming<hr></li>
-        <li class="nav-link" value="4" onclick="changeselect(this)">Online<hr></li>
-        <li class="nav-link" value="5" onclick="changeselect(this)">Informal<hr></li>
+      	{% for category in event_category %}{% if forloop.counter0 == 0 %}
+        <li class="nav-link active-link" value="{{forloop.counter0}}" onclick="changeselect(this)">{{ category.category }}<hr></li>
+        {% else %}
+        <li class="nav-link" value="{{forloop.counter0}}" onclick="changeselect(this)">{{ category.category }}<hr></li>
+        {% endif %}{% endfor %}
       </ul>
     </div>
 {% endblock %}
