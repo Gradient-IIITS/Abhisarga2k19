@@ -95,7 +95,11 @@
 			<div id="eventcards">
 				{% for category in event_category %}
 				<div class="eventcards">
-					<img src="{% static 'assets/img/events/dance.jpg' %}" alt="Dance">
+					{% if category.image %}
+					<img src="{{ category.image.url }}" alt="{{category.category}}">
+					{% else %}
+					<img src="{{ category.image.url }}" alt="{{category.category}}">
+					{% endif %}
 					<div class="shadow"></div>
 					<h1>{{ category.category }}</h1>
 					<p>{{ category.description }}</p>

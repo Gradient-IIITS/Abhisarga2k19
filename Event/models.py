@@ -6,8 +6,12 @@ from django.db import models
 def get_event_photo_path(instance, filename):
 	return "Event/{0}/{1}".format(instance.name, filename)
 
+def get_event_category_photo_path(instance, filename):
+	return "EventCategory/{0}/{1}".format(instance.category, filename)
+
 class EventCategory(models.Model):
 	category = models.CharField(max_length=100, null=True, blank=True)
+	image = models.ImageField(upload_to=get_event_category_photo_path, null=True, blank=True)
 	description = models.TextField()
 
 	def __str__(self):
