@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
-from .models import EventCategory, Event, Team
+from .models import EventCategory, Event, Team, Member
 # Create your views here.
 
 def event(request):
@@ -21,6 +23,7 @@ def event(request):
 	return render(request, event_template, {"event_category":event_cat, "all_events":all_events, "participated_events":part})
 
 
+@login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def eventRegistration(request):
 	if request.method=='GET':
 		event_id = request.GET.get('event_id')
@@ -40,5 +43,25 @@ def eventRegistration(request):
 		return HttpResponseRedirect(reverse('UserAuth:user_login'))
 
 
+@login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def teamEventRegistration(request):
+	if request.method == 'POST':
+		team_name = request.POST.get('team_name')
+		event_id = request.POST.get('event_id')
+		names = request.POST.getlist('name[]')
+		emails = request.POST.getlist('email[]')
+		try:
+			if request.user.is_authenticated and team_name and event_id:
+				team = Team()
+				team.team_name = team_name
+				team.event = Event.objects.get(id=event_id)
+				team.leader = request.user
+				team.save()
+
+				for name, email in zip(names, emails):
+					member = Member.objects.create(team=team, name=name, email=email)
+					member.save()
+		except Exception as e:
+			return HttpResponseRedirect(reverse('Event:events'))
+		return HttpResponseRedirect(reverse('Event:events'))
 	pass

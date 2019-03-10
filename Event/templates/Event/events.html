@@ -106,45 +106,42 @@
 				<div class="modal-container">
 					<div class="modal-close">
 					</div>
-					<h1>{{ event.name }}</h1>
+					<h1>{{ event.name }} Registration</h1>
 					<div class="moadal-content">
 						<div class="register-rules">
 						</div>
 						<div class="register-form">
-							<form action="" method="post">
+							<form action="{% url 'Event:teamEventRegistration' %}" method="post">
 								{% csrf_token %}
+								<input type="hidden" name="event_id" value="{{ event.event_category.id }}">
 								<div>
 									<div class="one-field">
-							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
-							        </div>
-							        <div class="one-field">
-							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Team Name" name="team_name">
 							        </div>
 								</div>
+								<br>
 								<div>
 									<div class="one-field">
-							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" value="{{ request.user.username }}" readonly="">
 							        </div>
 							        <div class="one-field">
-							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" value="{{ request.user.email }}" readonly="">
 							        </div>
 								</div>
+								{% with ''|center:event.participant_count as range %}
+								{% for _ in range %}
+								{% if forloop.counter0 != 0 %}
 								<div>
 									<div class="one-field">
-							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name(Optional)" name="name[]">
 							        </div>
 							        <div class="one-field">
-							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail(Optional)" name="email[]">
 							        </div>
 								</div>
-								<div>
-									<div class="one-field">
-							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
-							        </div>
-							        <div class="one-field">
-							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
-							        </div>
-								</div>
+								{% endif %}
+								{% endfor %}
+								{% endwith %}
 			          			<div>
 									<input type="checkbox" name="agree" style="display:none" class="register-agree"><span><span class="register-checkbox">&#10004;</span>I agree to the terms and condition.</span>
 			          			</div>

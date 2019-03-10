@@ -95,6 +95,7 @@ def send_account_activation_url(request, username):
 	return render(request, account_confirmation_page)
 
 
+@login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def logout_view(request):
 	logout(request)
 	return redirect('/')
