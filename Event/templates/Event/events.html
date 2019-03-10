@@ -72,9 +72,19 @@
 							<span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ event.event_from|date:"M d, Y" }}</span>
 							<span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ event.prize }}</span>
 						</div>
+						{% if event in participated_events %}
+						<div class="b-link">
+							<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
+						</div>
+						{% else %}{% if event.team_event %}
 						<div class="b-link event-register">
 							Register
 						</div>
+						{% else %}
+							<div class="b-link">
+								<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Register</a>
+							</div>
+						{% endif %}{% endif %}
 						<div class="b-link event-rules">
 							Rules
 						</div>
@@ -91,6 +101,7 @@
 							</div>
 						</div>
 					</div>
+					{% if event.team_event %}
 					<div class="modal modal-register">
 						<div class="modal-container">
 							<div class="modal-close">
@@ -145,6 +156,7 @@
 							</div>
 						</div>
 					</div>
+					{% endif %}
 				</div>
 				{% endfor %}
 			</div>
