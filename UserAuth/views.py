@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.utils.crypto import get_random_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from .models import User
 from Event.models import Event, EventCategory
