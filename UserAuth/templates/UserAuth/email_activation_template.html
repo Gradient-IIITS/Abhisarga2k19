@@ -1,21 +1,18 @@
-{% autoescape off %}
-Hello {{ user_fullname}}
+Hello <b>{{ user_fullname}},</b><br>
 We are glad to see you here.
-
+<br><br>
 Please click on the link below to confirm your email and activate your account:
-
-http://{{ domain }}{% url 'registration:activate' uidb64=uid token=token %}
-
+<br>
+{{link}}
+<br>
 This link is valid for 24 hours.
-
+<br><br>
 If you did not initialise this request, you can safely ignore this email.
+<br><br>
+Note: This is a system generated email. Please do not reply. Instead send a mail to abhisarga@iiits.in
+<br><br>
+Sincerely,<br>
+Abhisarga Support Team,<br>
+Abhisarga2k19,<br>
+Indian Institute of Information Technology, Sri City<br>
 
-Note: This is a system generated email. Please do not reply. Instead send a mail to techfesia@iiits.in
-
-Sincerely,
-Technical Support Team,
-TechFesia2k18,
-Indian Institute of Information Technology, Sri City
-
-
-{% endautoescape %}

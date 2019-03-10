@@ -7,6 +7,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.template.loader import render_to_string
+import threading
 
 from .models import User
 from Event.models import Event, EventCategory
@@ -23,6 +25,8 @@ class UserRegistrationView(View):
 	account_confirmation_page = 'UserAuth/account_confirmation_page.html'
 
 	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return HttpResponseRedirect(reverse('Event:events'))
 		return render(request, self.signup_template)
 		
 	def post(self, request, *args, **kwargs):
@@ -81,7 +85,20 @@ class UserLoginView(View):
 				return HttpResponseRedirect(reverse('Event:events'))
 			return render(request, self.signin_template, {"message":"Wrong email or password."})
 		else:
+			send_account_activation_url(request, user.username)
 			return render(request, self.account_confirmation_page, {"message": "Account is not activated. Please activate your account."})
+
+def send_email(subject, to_email, text_content, html_content):
+	from django.core.mail import EmailMultiAlternatives
+	#print(subject, to_email, text_content, html_content)
+	subject, from_email, to = subject, 'techfesia@gmail.com', to_email
+	text_content = text_content
+	html_content = html_content
+	msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+	msg.attach_alternative(html_content, "text/html")
+	print(msg)
+	msg.send()
+	return
 
 def send_account_activation_url(request, username):
 	account_confirmation_page = 'UserAuth/account_confirmation_page.html'
@@ -93,10 +110,18 @@ def send_account_activation_url(request, username):
 	print(activation_url)
 	user.activation_link = url
 	user.save()
-	# send_email()
+	try:
+		thread_process = threading.Thread(target=send_email, kwargs={
+			"subject":"Abhisarga Account Activation",
+			"to_email":user.email,
+			"text_content":"",
+			"html_content": render_to_string('UserAuth/email_activation_template.html', {"user_fullname":str(user.first_name)+" "+str(user.last_name), "link":activation_url})
+			})
+		thread_process.start()
+	except Exception as e:
+		print(e)
 	return
 	# return render(request, account_confirmation_page)
-
 
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def logout_view(request):
@@ -109,6 +134,6 @@ def activate_account(request, url):
 		user.activation_link = ""
 		user.is_verified = True
 		user.save()
-		return render(request, 'UserAuth/signin.html', {"message": "Account activated."})
-	except:
-		return HttpResponse("Activation link has expired.")
+		return HttpResponseRedirect(reverse('UserAuth:user_login'))
+	except Exception as e:
+		return HttpResponseRedirect(reverse('UserAuth:user_login'))

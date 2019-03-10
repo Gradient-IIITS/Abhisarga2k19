@@ -97,6 +97,12 @@ LOGIN_REDIRECT_URL = 'UserAuth:user_login'
 AUTH_USER_MODEL = 'UserAuth.User'
 WSGI_APPLICATION = 'abhisarga2k19.wsgi.application'
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'techfesia@gmail.com'
+EMAIL_HOST_PASSWORD = 'beesrupay'
+EMAIL_PORT = 587
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

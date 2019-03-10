@@ -15,14 +15,17 @@ def event(request):
 	for _ in event_cat:
 		events = Event.objects.filter(event_category__id=_.id)
 		all_events.append({"category":_, "events":events})
-	participated_events = Team.objects.filter(leader__username=request.user.username)
-	part = list()
-	for obj in participated_events:
-		part.append(obj.event)
+	try:
+		participated_events = Team.objects.filter(leader__username=request.user.username)
+		part = list()
+		for obj in participated_events:
+			part.append(obj.event)
 
-	participated_events = Member.objects.filter(email=request.user.email)
-	for obj in participated_events:
-		part.append(obj.team.event)	
+		participated_events = Member.objects.filter(email=request.user.email)
+		for obj in participated_events:
+			part.append(obj.team.event)
+	except Exception as e:
+		pass	
 	# print(part)
 	return render(request, event_template, {"event_category":event_cat, "all_events":all_events, "participated_events":part})
 
