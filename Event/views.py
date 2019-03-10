@@ -19,9 +19,12 @@ def event(request):
 	part = list()
 	for obj in participated_events:
 		part.append(obj.event)
+
+	participated_events = Member.objects.filter(email=request.user.email)
+	for obj in participated_events:
+		part.append(obj.team.event)	
 	# print(part)
 	return render(request, event_template, {"event_category":event_cat, "all_events":all_events, "participated_events":part})
-
 
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def eventRegistration(request):
@@ -41,7 +44,6 @@ def eventRegistration(request):
 
 			return HttpResponseRedirect(reverse('Event:events'))
 		return HttpResponseRedirect(reverse('UserAuth:user_login'))
-
 
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def teamEventRegistration(request):
