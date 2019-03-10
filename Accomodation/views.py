@@ -7,7 +7,6 @@ from django.conf import settings
 
 # Create your views here.
 
-@login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def Accomodation(request):
 	accomodation_page = 'Accomodation/accomodation_page.html'
 	return render(request, accomodation_page)
