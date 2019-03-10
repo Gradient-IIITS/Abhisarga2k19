@@ -1,5 +1,6 @@
 {% extends 'UserAuth/index.html' %}
 {% load staticfiles %}
+
 {% block page-title %}
 	<title>Login | Abhisarga 2k19</title>
 {% endblock %}
@@ -37,6 +38,7 @@
         <img src="{% static 'assets/img/logo-min.png' %}" alt="Abhisarga 2019">
       </div>
       <div id="formdiv">
+        {% if message %}{{ message }}{% endif %}
         <form action="{% url 'UserAuth:user_login' %}" method="post">
         	{% csrf_token %}
           <div>

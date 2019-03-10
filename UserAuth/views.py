@@ -78,7 +78,7 @@ class UserLoginView(View):
 				login(request, user)
 				if request.GET.get('next'):
 					return redirect(request.GET.get('next'))
-				return render(request, self.homepage)
+				return HttpResponseRedirect(reverse('Event:events'))
 			return render(request, self.signin_template, {"message":"Wrong email or password."})
 		else:
 			return render(request, self.account_confirmation_page, {"message": "Account is not activated. Please activate your account."})
@@ -94,7 +94,8 @@ def send_account_activation_url(request, username):
 	user.activation_link = url
 	user.save()
 	# send_email()
-	return render(request, account_confirmation_page)
+	return
+	# return render(request, account_confirmation_page)
 
 
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
