@@ -65,9 +65,9 @@
             <div class="user-phone"><a href="#">{{ volunteer.mobile_no }}</a></div>
             <div class="user-email"><a href="mailto:{{ volunteer.email }}">{{ volunteer.email }}</a></div>
             <div class="user-social">
-              <a href="{{ volunteer.facebook_link }}"><img src="{% static 'assets/img/fb.png' %}" alt=""></a>
-              <a href="{{ volunteer.instagram_link }}"><img src="{% static 'assets/img/insta.png' %}" alt=""></a>
-              <a href="{{ volunteer.linkedin_link }}"><img src="{% static 'assets/img/linkedin.png' %}" alt=""></a>
+              <a href="{% if volunteer.facebook_link %}{{ volunteer.facebook_link }}{% endif %}"><img src="{% static 'assets/img/fb.png' %}" alt=""></a>
+              <a href="{% if volunteer.instagram_link %}{{ volunteer.instagram_link }}{% endif %}"><img src="{% static 'assets/img/insta.png' %}" alt=""></a>
+              <a href="{% if volunteer.linkedin_link %}{{ volunteer.linkedin_link }}{% endif %}"><img src="{% static 'assets/img/linkedin.png' %}" alt=""></a>
             </div>
           </div>
         </div>
