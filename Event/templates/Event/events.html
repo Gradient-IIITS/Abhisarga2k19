@@ -72,10 +72,17 @@
 					<span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ event.event_from|date:"M d, Y" }}</span>
 					<span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ event.prize }}</span>
 				</div>
+
 				{% if event in participated_events %}
+				{% if event.team_event %}
+				<div class="b-link">
+					<a href="#">Registered</a>
+				</div>
+				{% else %}
 				<div class="b-link">
 					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
 				</div>
+				{% endif %}
 				{% else %}{% if event.team_event %}
 				<div class="b-link event-register">
 					Register
