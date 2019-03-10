@@ -24,18 +24,20 @@ def event(request):
 def eventRegistration(request):
 	if request.method=='GET':
 		event_id = request.GET.get('event_id')
-		check = Team.objects.filter(leader__username=request.user.username, event__id=event_id)
-		if len(check)==0:
-			team = Team()
-			team.team_name = request.user.username
-			team.event = Event.objects.get(id=event_id)
-			team.leader = request.user
-			team.save()
-		else:
-			for _ in check:
-				_.delete()
+		if request.user.is_authenticated:
+			check = Team.objects.filter(leader__username=request.user.username, event__id=event_id)
+			if len(check)==0:
+				team = Team()
+				team.team_name = request.user.username
+				team.event = Event.objects.get(id=event_id)
+				team.leader = request.user
+				team.save()
+			else:
+				for _ in check:
+					_.delete()
 
-		return HttpResponseRedirect(reverse('Event:events'))
+			return HttpResponseRedirect(reverse('Event:events'))
+		return HttpResponseRedirect(reverse('UserAuth:user_login'))
 
 
 def teamEventRegistration(request):

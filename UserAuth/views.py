@@ -108,8 +108,3 @@ def activate_account(request, url):
 		return render(request, 'UserAuth/signin.html', {"message": "Account activated."})
 	except:
 		return HttpResponse("Activation link has expired.")
-
-def contactUs(request):
-	if request.method == 'GET':
-		contact_page = 'UserAuth/contact_page.html'
-		return render(request, contact_page)

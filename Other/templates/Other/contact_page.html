@@ -1,0 +1,85 @@
+{% extends 'UserAuth/index.html' %}
+{% load staticfiles %}
+{% block page-title %}
+<title>Contact Us | ABHISARGA 2K19</title>
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/usercard.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
+<script src="{% static 'assets/js/menu.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="bar">
+  <img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo">
+  <div id="menu" onclick="menuopen()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  {% if request.user.is_authenticated %}
+  <div id="login">
+    <a href="{% url 'UserAuth:logout' %}">Log Out</a>
+  </div>
+  <div id="register">
+    <a href="javascript:function()">Profile</a>
+  </div>
+  {% else %}
+  <div id="register">
+    <a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
+  </div>
+  <div id="login">
+    <a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
+  </div>
+  {% endif %}
+</div>
+<div class="contact-head">
+  <h1>Contact Us</h1>
+  <p>
+    For queries you can reach out to
+  </p>
+</div>
+{% for object in objects %}
+<div class="contact-department">
+  <h1>{{ object.category.name }}</h1>
+  <div class="contact-cards">
+    {% for volunteer in object.volunteers %}
+    <div class="user-card">
+      <div class="user-details">
+        <h1>{{ volunteer.name }}</h1>
+        <p>
+          {{ volunteer.description }}
+        </p>
+      </div>
+      <div class="user-full">
+        <div class="user-image">
+          {% if volunteer.avatar %}
+          <img src="{{ volunteer.avatar.url }}" alt="{{ volunteer.name }}">
+          {% endif %}
+        </div>
+        <div class="user-hidden">
+          <h1>{{ volunteer.name }}</h1>
+          <h2>{{ volunteer.designation }}</h2>
+          <div class="user-contact">
+            <div class="user-phone"><a href="#">{{ volunteer.mobile_no }}</a></div>
+            <div class="user-email"><a href="mailto:{{ volunteer.email }}">{{ volunteer.email }}</a></div>
+            <div class="user-social">
+              <a href="{{ volunteer.facebook_link }}"><img src="{% static 'assets/img/fb.png' %}" alt=""></a>
+              <a href="{{ volunteer.instagram_link }}"><img src="{% static 'assets/img/insta.png' %}" alt=""></a>
+              <a href="{{ volunteer.linkedin_link }}"><img src="{% static 'assets/img/linkedin.png' %}" alt=""></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+<div class="contact-head">
+  <p>
+    or mail us at <a href="mailto:abhisarga@iiits.in">abhisarga@iiits.in</a>
+  </p>
+</div>
+{% endblock %}
