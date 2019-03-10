@@ -12,164 +12,164 @@
     <script src="{% static 'assets/js/events.js' %}"></script>
 {% endblock %}
 {% block content %}
-		<div id="bar">
-			<img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo">
-			<div id="menu" onclick="menuopen()">
+<div id="bar">
+	<img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo">
+	<div id="menu" onclick="menuopen()">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	{% if request.user.is_authenticated %}
+	<div id="login">
+		<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
+		<a href="{% url 'UserAuth:logout' %}">Log Out</a>
+		<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+	</div>
+	<div id="register">
+		<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
+		<a href="javascript:function()">Profile</a>
+		<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+	</div>
+	{% else %}
+	<div id="register">
+		<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
+		<a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
+		<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+	</div>
+	<div id="login">
+		<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
+		<a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
+		<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+	</div>
+	{% endif %}
+</div>
+<div id="select-list">
+		<select id="eventselect" onchange="changecontent()">
+			{% for category in event_category %}
+			<option value="{{forloop.counter0}}">{{category.category}}</option>
+			{% endfor %}
+		</select>
+		<img src="{% static 'assets/img/arrow.png' %}" alt="">
+</div>
+<div id="event-content">
+	{% for object in all_events %}
+	{% if forloop.counter0 == 0 %} <div class="events-internal"> {% else %} <div class="events-internal" style="display: none;"> {% endif %}
+		{% for event in object.events %}
+		<div class="single-event">
+			<h1>{{ event.name }}</h1>
+			<div class="image">
+				{% if event.logo %}
+				<img src="{{ event.logo.url }}" alt="{{ event.name }}">
+				{% endif %}
 				<div></div>
-				<div></div>
-				<div></div>
 			</div>
-			{% if request.user.is_authenticated %}
-			<div id="login">
-				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
-				<a href="{% url 'UserAuth:logout' %}">Log Out</a>
-				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+			<div class="event-details">
+				<p>
+					{{ event.description }}
+				</p>
+				<div class="s-info">
+					<img src="{% static 'assets/img/svg/design.svg' %}" alt="">
+					<span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ event.event_from|date:"M d, Y" }}</span>
+					<span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ event.prize }}</span>
+				</div>
+				{% if event in participated_events %}
+				<div class="b-link">
+					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
+				</div>
+				{% else %}{% if event.team_event %}
+				<div class="b-link event-register">
+					Register
+				</div>
+				{% else %}
+					<div class="b-link">
+						<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Register</a>
+					</div>
+				{% endif %}{% endif %}
+				<div class="b-link event-rules">
+					Rules
+				</div>
 			</div>
-			<div id="register">
-				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
-				<a href="javascript:function()">Profile</a>
-				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+			<div class="modal modal-rules" style="display: none;">
+				<div class="modal-container">
+					<div class="modal-close">
+					</div>
+					<h1>Rules and Regulations</h1>
+					<div class="moadal-content">
+						<ul>
+							{{ event.rules }}
+						</ul>
+					</div>
+				</div>
 			</div>
-			{% else %}
-			<div id="register">
-				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
-				<a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
-				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
-			</div>
-			<div id="login">
-				<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
-				<a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
-				<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
+			{% if event.team_event %}
+			<div class="modal modal-register" style="display: none;">
+				<div class="modal-container">
+					<div class="modal-close">
+					</div>
+					<h1>{{ event.name }}</h1>
+					<div class="moadal-content">
+						<div class="register-rules">
+						</div>
+						<div class="register-form">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							        </div>
+								</div>
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							        </div>
+								</div>
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							        </div>
+								</div>
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
+							        </div>
+								</div>
+			          			<div>
+									<input type="checkbox" name="agree" style="display:none" class="register-agree"><span><span class="register-checkbox">&#10004;</span>I agree to the terms and condition.</span>
+			          			</div>
+								<div>
+			            			<button type="submit">Register Me</button>
+			          			</div>
+			        		</form>
+						</div>
+					</div>
+				</div>
 			</div>
 			{% endif %}
 		</div>
-    <div id="select-list">
-			<select id="eventselect" onchange="changecontent()">
-				{% for category in event_category %}
-				<option value="{{forloop.counter0}}">{{category.category}}</option>
-				{% endfor %}
-			</select>
-			<img src="{% static 'assets/img/arrow.png' %}" alt="">
-    </div>
-		<div id="event-content">
-			{% for object in all_events %}
-			{% if forloop.counter0 == 0 %} <div class="events-internal"> {% else %} <div class="events-internal" style="display: none;"> {% endif %}
-				{% for event in object.events %}
-				<div class="single-event">
-					<h1>{{ event.name }}</h1>
-					<div class="image">
-						{% if event.logo %}
-						<img src="{{ event.logo.url }}" alt="{{ event.name }}">
-						{% endif %}
-						<div></div>
-					</div>
-					<div class="event-details">
-						<p>
-							{{ event.description }}
-						</p>
-						<div class="s-info">
-							<img src="{% static 'assets/img/svg/design.svg' %}" alt="">
-							<span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ event.event_from|date:"M d, Y" }}</span>
-							<span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ event.prize }}</span>
-						</div>
-						{% if event in participated_events %}
-						<div class="b-link">
-							<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
-						</div>
-						{% else %}{% if event.team_event %}
-						<div class="b-link event-register">
-							Register
-						</div>
-						{% else %}
-							<div class="b-link">
-								<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Register</a>
-							</div>
-						{% endif %}{% endif %}
-						<div class="b-link event-rules">
-							Rules
-						</div>
-					</div>
-					<div class="modal modal-rules">
-						<div class="modal-container">
-							<div class="modal-close">
-							</div>
-							<h1>Rules and Regulations</h1>
-							<div class="moadal-content">
-								<ul>
-									{{ event.rules }}
-								</ul>
-							</div>
-						</div>
-					</div>
-					{% if event.team_event %}
-					<div class="modal modal-register">
-						<div class="modal-container">
-							<div class="modal-close">
-							</div>
-							<h1>{{ event.name }}</h1>
-							<div class="moadal-content">
-								<div class="register-rules">
-								</div>
-								<div class="register-form">
-									<form action="" method="post">
-										{% csrf_token %}
-										<div>
-											<div class="one-field">
-									            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
-									        </div>
-									        <div class="one-field">
-									        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
-									        </div>
-										</div>
-										<div>
-											<div class="one-field">
-									            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
-									        </div>
-									        <div class="one-field">
-									        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
-									        </div>
-										</div>
-										<div>
-											<div class="one-field">
-									            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
-									        </div>
-									        <div class="one-field">
-									        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
-									        </div>
-										</div>
-										<div>
-											<div class="one-field">
-									            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" name="name">
-									        </div>
-									        <div class="one-field">
-									        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" name="email">
-									        </div>
-										</div>
-					          			<div>
-											<input type="checkbox" name="agree" style="display:none" class="register-agree"><span><span class="register-checkbox">&#10004;</span>I agree to the terms and condition.</span>
-					          			</div>
-										<div>
-					            			<button type="submit">Register Me</button>
-					          			</div>
-					        		</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					{% endif %}
-				</div>
-				{% endfor %}
-			</div>
-			{% endfor %}
-		</div>
-    
-    <div id="listnav">
-      <ul>
-      	{% for category in event_category %}{% if forloop.counter0 == 0 %}
-        <li class="nav-link active-link" value="{{forloop.counter0}}" onclick="changeselect(this)">{{ category.category }}<hr></li>
-        {% else %}
-        <li class="nav-link" value="{{forloop.counter0}}" onclick="changeselect(this)">{{ category.category }}<hr></li>
-        {% endif %}{% endfor %}
-      </ul>
-    </div>
+		{% endfor %}
+	</div>
+	{% endfor %}
+</div>
+
+<div id="listnav">
+  <ul>
+  	{% for category in event_category %}{% if forloop.counter0 == 0 %}
+    <li class="nav-link active-link" value="{{forloop.counter0}}" onclick="changeselect(this)">{{ category.category }}<hr></li>
+    {% else %}
+    <li class="nav-link" value="{{forloop.counter0}}" onclick="changeselect(this)">{{ category.category }}<hr></li>
+    {% endif %}{% endfor %}
+  </ul>
+</div>
 {% endblock %}
