@@ -59,9 +59,11 @@ def teamEventRegistration(request):
 				team.save()
 
 				for name, email in zip(names, emails):
-					member = Member.objects.create(team=team, name=name, email=email)
-					member.save()
+					if name or email:
+						member = Member.objects.create(team=team, name=name, email=email)
+						member.save()
 		except Exception as e:
+			print(e)
 			return HttpResponseRedirect(reverse('Event:events'))
 		return HttpResponseRedirect(reverse('Event:events'))
 	pass

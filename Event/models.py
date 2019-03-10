@@ -48,7 +48,7 @@ class Team(models.Model):
 	leader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="team_leader_of")
 
 	def __str__(self):
-		return self.team_name
+		return str(self.team_name) + ' - ' + str(self.event.name)
 
 
 class Member(models.Model):

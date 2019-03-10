@@ -113,7 +113,7 @@
 						<div class="register-form">
 							<form action="{% url 'Event:teamEventRegistration' %}" method="post">
 								{% csrf_token %}
-								<input type="hidden" name="event_id" value="{{ event.event_category.id }}">
+								<input type="hidden" name="event_id" value="{{ event.id }}">
 								<div>
 									<div class="one-field">
 							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Team Name" name="team_name">
