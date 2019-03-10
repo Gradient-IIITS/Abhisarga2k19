@@ -29,7 +29,7 @@
 					<hr align="left" width="20%">
 				</div>
 				<ul>
-					<li><a href="#">Accomodation</a></li>
+					<li><a href="{% url 'Accomodation:accomodation' %}">Accomodation</a></li>
 					<li><a href="#">Team</a></li>
 					<li><a href="{% url 'UserAuth:contactus' %}">Contact Us</a></li>
 				</ul>
@@ -74,7 +74,7 @@
 				<ul>
 					<li><a href="{% url 'UserAuth:home' %}">Home</a><hr></li>
 					<li><a href="{% url 'Event:events' %}">Events</a><hr></li>
-					<li><a href="">Accomodation</a><hr></li>
+					<li><a href="{% url 'Accomodation:accomodation' %}">Accomodation</a><hr></li>
 					<li><a href="">Sponsors</a><hr></li>
 					<li><a href="">Team</a><hr></li>
 					<li><a href="{% url 'UserAuth:contactus' %}">Contact Us</a><hr></li>

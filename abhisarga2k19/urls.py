@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('UserAuth.urls')),
     path(r'event/', include('Event.urls')),
     path(r'api/', include('api.urls')),
+    path(r'accomodation/', include('Accomodation.urls')),
     # url(r'^auth/', include('social_django.urls', namespace='social')),
     url(r'^api-token-auth/', obtain_jwt_token),
 
