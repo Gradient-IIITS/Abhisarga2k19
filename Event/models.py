@@ -39,7 +39,10 @@ class Event(models.Model):
 	team_event = models.BooleanField(default=False)
 
 	def __str__(self):
-		return self.name
+		teams=list()
+		if self.id:
+			teams = Team.objects.filter(event__id=self.id)
+		return str(self.name) + ' - ' + str(len(teams))
 
 
 class Team(models.Model):
