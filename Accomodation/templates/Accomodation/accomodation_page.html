@@ -13,7 +13,7 @@
 {% endblock %}
 {% block content %}
 <div id="bar">
-  <img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo">
+  <a href="{% url 'UserAuth:home' %}"><img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo"></a>
   <div id="menu" onclick="menuopen()">
     <div></div>
     <div></div>

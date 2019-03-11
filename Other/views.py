@@ -15,3 +15,11 @@ def contactUs(request):
 			volunteers = Volunteer.objects.filter(category__id=cat.id)
 			all_volunteer.append({"category":cat, "volunteers":volunteers}) 
 		return render(request, contact_page, {"objects":all_volunteer})
+
+def sponsor(request):
+	if request.method == 'GET':
+		return render(request, 'Other/sponsor.html')
+
+def team(request):
+	if request.method == 'GET':
+		return render(request, 'Other/team.html')
