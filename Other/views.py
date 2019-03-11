@@ -23,3 +23,7 @@ def sponsor(request):
 def team(request):
 	if request.method == 'GET':
 		return render(request, 'Other/team.html')
+
+def schedule(request):
+	if request.method == 'GET':
+		return render(request, 'Other/schedule.html')

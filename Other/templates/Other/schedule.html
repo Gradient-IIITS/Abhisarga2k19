@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block page-title %}
-  <title>Team | Abhisarga 2k19</title>
+	<title>Schedule | Abhisarga 2k19</title>
 {% endblock %}
 
 {% block link %}
@@ -20,28 +20,28 @@
     <div></div>
     <div></div>
   </div>
-  {% if request.user.is_authenticated %}
-  <div id="login">
-    <a href="{% url 'UserAuth:logout' %}">Log Out</a>
-  </div>
-  <div id="register">
-    <a href="javascript:function()">Profile</a>
-  </div>
-  {% else %}
-  <div id="register">
-    <a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
-  </div>
-  <div id="login">
-    <a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
-  </div>
-  {% endif %}
+	{% if request.user.is_authenticated %}
+	<div id="login">
+		<a href="{% url 'UserAuth:logout' %}">Log Out</a>
+	</div>
+	<div id="register">
+		<a href="javascript:function()">Profile</a>
+	</div>
+	{% else %}
+	<div id="register">
+		<a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
+	</div>
+	<div id="login">
+		<a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
+	</div>
+	{% endif %}
 </div>
 <div id="accomodation">
   <div id="accomodation-content">
     <!-- <h1>Account Verification</h1> -->
     <center>
     <h2>
-      Coming soon....
+    	Coming soon....
     </h2>
     </center>
    </div>
