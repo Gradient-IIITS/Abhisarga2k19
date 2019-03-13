@@ -5,6 +5,14 @@ from UserAuth.models import *
 from Event.models import *
 
 class UserSerializer(ModelSerializer):
+
+	profile_pic = serializers.SerializerMethodField('get_thumbnail_url')
+	def get_thumbnail_url(self, obj):
+		try:
+			return self.context['request'].build_absolute_uri(obj.profile_pic.url)
+		except:
+			return None
+
 	class Meta:
 		model = User
 		fields = [
@@ -32,6 +40,13 @@ class EventCategorySerializer(ModelSerializer):
 class EventSerializer(ModelSerializer):
 	event_category = EventCategorySerializer(many=False, required=False)
 	organisers = UserSerializer(many=True, required=False)
+	brochure = serializers.SerializerMethodField('get_thumbnail_url')
+
+	def get_thumbnail_url(self, obj):
+		try:
+			return self.context['request'].build_absolute_uri(obj.brochure.url)
+		except:
+			return None
 	
 	class Meta:
 		model = Event
