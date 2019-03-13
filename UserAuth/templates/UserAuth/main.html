@@ -21,7 +21,7 @@
       <div class="stripe"></div>
     </div>
 		<div id="bar">
-			<a href=""><img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo"></a>
+			<a href="{% url 'UserAuth:home' %}"><img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo"></a>
 			<div id="menu" onclick="menuopen()">
 				<div></div>
 				<div></div>
@@ -111,7 +111,7 @@
 					<p>{{ category.description }}</p>
 					<ul>
 						{% for event in events %}{% if event.event_category.id == category.id %}
-						<li>+ &nbsp; &nbsp; {{ event.name }}</li>
+						<li>{{ event.name }}</li>
 						{% endif %}{% endfor %}
 					</ul>
 				</div>
