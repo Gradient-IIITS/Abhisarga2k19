@@ -75,17 +75,24 @@ class RegisterForTeamEventView(APIView):
 			print (e)
 			return Response(False)
 
+class RegisterForSingleEventView(APIView):
+	permission_classes = (AllowAny,)
 
-
-
-		# for email:
-		# 	if name or email:
-		# 		member = Member.objects.create(team=team, name=name, email=email)
-		# 		member.save()
-
-
-		# except Exception:
-		# 	print(traceback.format_exc())
-		# 	return Response(status=500)
-	# except Exception as e:
-	# 	print (e)
+	def post(self, request, format=None):
+		try:
+			body = json.loads(request.body.decode('utf-8'))
+			event_id = body['event_id']
+			check = Team.objects.filter(leader__username=request.user.username, event__id=event_id)
+			if len(check)==0:
+				team = Team()
+				team.team_name = request.user.username
+				team.event = Event.objects.get(id=event_id)
+				team.leader = request.user
+				team.save()
+			else:
+				for _ in check:
+					_.delete()
+			return Response(True)
+		except Exception as e:
+			print (e)
+			return Response(False)
