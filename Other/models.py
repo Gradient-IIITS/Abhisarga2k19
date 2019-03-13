@@ -7,6 +7,8 @@ def get_avatar_path(instance, filename):
 
 class TeamCategory(models.Model):
 	name = models.CharField(max_length=200, null=True, blank=True)
+	web_priority = models.IntegerField(default=0)
+	app_priority = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.name

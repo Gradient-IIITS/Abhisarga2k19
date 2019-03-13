@@ -27,7 +27,7 @@
 	</div>
 	<div id="register">
 		<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
-		<a href="javascript:function()">Profile</a>
+		<a href="{% url 'UserAuth:profile' %}">Profile</a>
 		<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
 	</div>
 	{% else %}

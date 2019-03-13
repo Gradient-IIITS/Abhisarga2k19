@@ -17,7 +17,7 @@ def sponsor(request):
 
 def team(request):
 	if request.method == 'GET':
-		category = TeamCategory.objects.all()
+		category = TeamCategory.objects.all().order_by("web_priority")
 		all_volunteer = list()
 		for cat in category:
 			volunteers = Volunteer.objects.filter(category__id=cat.id)
