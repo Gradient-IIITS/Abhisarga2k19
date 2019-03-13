@@ -91,7 +91,7 @@ class UserLoginView(View):
 def send_email(subject, to_email, text_content, html_content):
 	from django.core.mail import EmailMultiAlternatives
 	#print(subject, to_email, text_content, html_content)
-	subject, from_email, to = subject, 'techfesia@gmail.com', to_email
+	subject, from_email, to = subject, settings.EMAIL_HOST_USER , to_email
 	text_content = text_content
 	html_content = html_content
 	msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
