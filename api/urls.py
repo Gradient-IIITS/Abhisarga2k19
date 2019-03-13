@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import UserView, EventView, CheckRegistrationView, RegisterForTeamEventView, RegisterForSingleEventView
+from .views import UserView, EventView, CheckRegistrationView, RegisterForTeamEventView, RegisterForSingleEventView, MessageFromTeamView
 
 app_name = 'api'
 
@@ -9,10 +9,6 @@ urlpatterns = [
 	url(r'^check-registration/$', CheckRegistrationView.as_view(), name='CheckRegistration'),
 	url(r'^register-for-team-event/$', RegisterForTeamEventView.as_view(), name='RegisterForTeamEventView'),
 	url(r'^register-for-single-event/$', RegisterForSingleEventView.as_view(), name='RegisterForSingleEventView'),
-
-
-	
-
-
+	url(r'^message-from-team/$', MessageFromTeamView.as_view(), name='MessageFromTeamView'),
 	
 	]

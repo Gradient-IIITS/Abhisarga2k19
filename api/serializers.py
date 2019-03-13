@@ -3,6 +3,7 @@ from rest_framework.serializers import ModelSerializer
 
 from UserAuth.models import *
 from Event.models import *
+from api.models import *
 
 class UserSerializer(ModelSerializer):
 
@@ -50,4 +51,10 @@ class EventSerializer(ModelSerializer):
 	
 	class Meta:
 		model = Event
+		fields = '__all__'
+
+
+class MessageSerializer(ModelSerializer):
+	class Meta:
+		model = MessageToParticipant
 		fields = '__all__'

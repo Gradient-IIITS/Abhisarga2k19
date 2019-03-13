@@ -38,6 +38,13 @@ class Event(models.Model):
 	registration_closed = models.BooleanField(default=False)
 	team_event = models.BooleanField(default=False)
 
+	img_1 = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
+	img_2 = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
+	img_3 = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
+	img_4 = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
+
+
+
 	def __str__(self):
 		teams=list()
 		if self.id:

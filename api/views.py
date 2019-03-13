@@ -6,7 +6,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from UserAuth.models import User
 from Event.models import Event, Team, Member
-from .serializers import UserSerializer, EventSerializer
+from .models import MessageToParticipant
+from .serializers import UserSerializer, EventSerializer, MessageSerializer
 
 import json
 
@@ -96,3 +97,20 @@ class RegisterForSingleEventView(APIView):
 		except Exception as e:
 			print (e)
 			return Response(False)
+
+
+class MessageFromTeamView(APIView):
+	permission_classes = (AllowAny,)
+	def get(self, request, format=None):
+		try:
+			message = MessageToParticipant.objects.all()
+			serialized_message = MessageSerializer(message, many=True)
+			return Response(serialized_message.data)
+		except Exception as e:
+			print(e)
+			return Response("Something went wrong.")
+
+			# return Response({'bold_heading': "Abhisarga starts in 29th March",
+			# 				'content': "Welcome to Abhisarga, 2k19. The annual cultural fest of IIIT Sri City. This years its bigger than ever.",
+			# 				"issued_by": "Bhavi Chawla",
+			# 				"sub_heading": "Message from the abhisarga team"})
