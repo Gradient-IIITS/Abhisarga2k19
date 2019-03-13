@@ -8,12 +8,7 @@ from .models import TeamCategory, Volunteer
 
 def contactUs(request):
 	if request.method == 'GET':
-		contact_page = 'Other/contact_page.html'
-		category = TeamCategory.objects.all()
-		all_volunteer = list()
-		for cat in category:
-			volunteers = Volunteer.objects.filter(category__id=cat.id)
-			all_volunteer.append({"category":cat, "volunteers":volunteers}) 
+		contact_page = 'Other/contact_page.html' 
 		return render(request, contact_page, {"objects":all_volunteer})
 
 def sponsor(request):
@@ -22,7 +17,12 @@ def sponsor(request):
 
 def team(request):
 	if request.method == 'GET':
-		return render(request, 'Other/team.html')
+		category = TeamCategory.objects.all().order_by("web_priority")
+		all_volunteer = list()
+		for cat in category:
+			volunteers = Volunteer.objects.filter(category__id=cat.id)
+			all_volunteer.append({"category":cat, "volunteers":volunteers})
+		return render(request, 'Other/team.html', {"objects":all_volunteer})
 
 def schedule(request):
 	if request.method == 'GET':

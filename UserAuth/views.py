@@ -11,13 +11,13 @@ from django.template.loader import render_to_string
 import threading
 
 from .models import User
-from Event.models import Event, EventCategory
+from Event.models import Event, EventCategory, Team, Member
 # Create your views here.
 
 def home(request):
 	home_page = 'UserAuth/main.html'
-	event_cat = EventCategory.objects.all()
-	events = Event.objects.all()
+	event_cat = EventCategory.objects.all().order_by("web_priority")
+	events = Event.objects.all().order_by("web_priority")
 	return render(request, home_page, {"event_category":event_cat, "events":events})
 
 class UserRegistrationView(View):
@@ -127,6 +127,24 @@ def send_account_activation_url(request, username):
 def logout_view(request):
 	logout(request)
 	return redirect('/')
+
+@login_required(login_url=settings.LOGIN_REDIRECT_URL)
+def Profile(request):
+	profile_page = 'UserAuth/profile.html'
+	if request.method=='GET':
+		try:
+			participated_events = Team.objects.filter(leader__username=request.user.username)
+			part = list()
+			for obj in participated_events:
+				part.append({"event":obj.event, "team":{"leader": obj,"members": obj.belong_to_team.all()}})
+
+			participated_events = Member.objects.filter(email=request.user.email)
+			for obj in participated_events:
+				part.append({"event":obj.team.event, "team":{"leader": obj.team,"members": obj.team.belong_to_team.all()}})
+		except Exception as e:
+			pass
+			# print(obj)
+		return render(request, profile_page, {"participated_events":part})
 
 def activate_account(request, url):
 	try:

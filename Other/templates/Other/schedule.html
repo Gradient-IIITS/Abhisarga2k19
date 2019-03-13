@@ -25,7 +25,7 @@
 		<a href="{% url 'UserAuth:logout' %}">Log Out</a>
 	</div>
 	<div id="register">
-		<a href="javascript:function()">Profile</a>
+		<a href="{% url 'UserAuth:profile' %}">Profile</a>
 	</div>
 	{% else %}
 	<div id="register">

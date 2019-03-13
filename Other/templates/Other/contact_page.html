@@ -1,15 +1,17 @@
 {% extends 'UserAuth/index.html' %}
 {% load staticfiles %}
+
 {% block page-title %}
-<title>Contact Us | ABHISARGA 2K19</title>
+  <title>Contact Us | Abhisarga 2k19</title>
 {% endblock %}
 
 {% block link %}
-<link rel="stylesheet" type="text/css" href="{% static 'assets/css/usercard.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/contact.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
+<script src="{% static 'assets/js/accomodation.js' %}"></script>
 <script src="{% static 'assets/js/menu.js' %}"></script>
 {% endblock %}
+
 {% block content %}
 <div id="bar">
   <a href="{% url 'UserAuth:home' %}"><img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo"></a>
@@ -23,7 +25,7 @@
     <a href="{% url 'UserAuth:logout' %}">Log Out</a>
   </div>
   <div id="register">
-    <a href="javascript:function()">Profile</a>
+    <a href="{% url 'UserAuth:profile' %}">Profile</a>
   </div>
   {% else %}
   <div id="register">
@@ -34,52 +36,39 @@
   </div>
   {% endif %}
 </div>
-<div class="contact-head">
-  <h1>Contact Us</h1>
-  <p>
-    For queries you can reach out to
-  </p>
-</div>
-{% for object in objects %}
-<div class="contact-department">
-  <h1>{{ object.category.name }}</h1>
-  <div class="contact-cards">
-    {% for volunteer in object.volunteers %}
-    <div class="user-card">
-      <div class="user-details">
-        <h1>{{ volunteer.name }}</h1>
-        <p>
-          {{ volunteer.description }}
-        </p>
-      </div>
-      <div class="user-full">
-        <div class="user-image">
-          {% if volunteer.avatar %}
-          <img src="{{ volunteer.avatar.url }}" alt="{{ volunteer.name }}">
-          {% endif %}
-        </div>
-        <div class="user-hidden">
-          <h1>{{ volunteer.name }}</h1>
-          <h2>{{ volunteer.designation }}</h2>
-          <div class="user-contact">
-            <div class="user-phone"><a href="#">{{ volunteer.mobile_no }}</a></div>
-            <div class="user-email"><a href="mailto:{{ volunteer.email }}">{{ volunteer.email }}</a></div>
-            <div class="user-social">
-              <a href="{% if volunteer.facebook_link %}{{ volunteer.facebook_link }}{% endif %}"><img src="{% static 'assets/img/fb.png' %}" alt=""></a>
-              <a href="{% if volunteer.instagram_link %}{{ volunteer.instagram_link }}{% endif %}"><img src="{% static 'assets/img/insta.png' %}" alt=""></a>
-              <a href="{% if volunteer.linkedin_link %}{{ volunteer.linkedin_link }}{% endif %}"><img src="{% static 'assets/img/linkedin.png' %}" alt=""></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
+<div id="full">
+  <div id="contact-head">
+    <h1>Contact Us</h1>
+    <p>
+      For any queries please contact
+      <br>
+      <br>
+      Prathyush Potluri
+      <br>
+      <a href="tel:8187808108"><img src="{% static 'assets/img/svg/phone.svg' %}" alt="">8187808108</a>
+      <br>
+      <a href="mailto:prathyush.p16@iiits.in"><img src="{% static 'assets/img/svg/email.svg' %}" alt="">prathyush.p16@iiits.in</a>
+      <br>
+      <br>
+      Sowmya Vasuki
+      <br>
+      <a href="tel:9440902889"><img src="{% static 'assets/img/svg/phone.svg' %}" alt="">9440902889</a>
+      <br>
+      <a href="mailto:sowmyavasuki.j16@iiits.in"><img src="{% static 'assets/img/svg/email.svg' %}" alt="">sowmyavasuki.j16@iiits.in</a>
+      <br>
+      <br>
+      Krishna Kumar Dey
+      <br>
+      <a href="tel:7780744336"><img src="{% static 'assets/img/svg/phone.svg' %}" alt="">7780744336</a>
+      <br>
+      <a href="mailto:krishnakumar.d16@iiits.in"><img src="{% static 'assets/img/svg/email.svg' %}" alt="">krishnakumar.d16@iiits.in</a>
+      <br>
+      <br>
+      or drop mail us at <a href="mailto:abhisarga.iiits.in" style="margin: 0; padding: 0;">abhisarga.iiits.in</a>
+    </p>
   </div>
-</div>
-{% endfor %}
-<div class="contact-head">
-  <p>
-    or mail us at <a href="mailto:abhisarga@iiits.in">abhisarga@iiits.in</a>
-  </p>
+  <div id="googlemaps">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.653707084532!2d80.02393425035366!3d13.556822305387598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4d773f1e0f8721%3A0xadb0842ffc2719e4!2sIndian+Institute+of+Information+Technology+Sri+City!5e0!3m2!1sen!2sin!4v1552065298958" width="100%" height="100%" frameborder="0" style="border: 0"></iframe>
+  </div>
 </div>
 {% endblock %}

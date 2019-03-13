@@ -27,7 +27,7 @@
 	</div>
 	<div id="register">
 		<!-- <img src="{% static 'assets/img/svg/circdsg1.svg' %}" width="80%" height="20%" alt=""> -->
-		<a href="javascript:function()">Profile</a>
+		<a href="{% url 'UserAuth:profile' %}">Profile</a>
 		<!-- <img src="{% static 'assets/img/svg/circdsg2.svg' %}" width="80%" height="20%" alt=""> -->
 	</div>
 	{% else %}
@@ -64,7 +64,7 @@
 				<div></div>
 			</div>
 			<div class="event-details">
-				<p>
+				<p class="scrollbar">
 					{{ event.description }}
 				</p>
 				<div class="s-info">
@@ -97,11 +97,11 @@
 				</div>
 			</div>
 			<div class="modal modal-rules" style="display: none;">
-				<div class="modal-container">
+				<div class="modal-container scrollbar">
 					<div class="modal-close">
 					</div>
 					<h1>Rules and Regulations</h1>
-					<div class="moadal-content">
+					<div class="modal-content">
 						<ul>
 							{{ event.rules }}
 						</ul>
@@ -110,11 +110,11 @@
 			</div>
 			{% if event.team_event %}
 			<div class="modal modal-register" style="display: none;">
-				<div class="modal-container">
+				<div class="modal-container scrollbar">
 					<div class="modal-close">
 					</div>
 					<h1>{{ event.name }} Registration</h1>
-					<div class="moadal-content">
+					<div class="modal-content">
 						<div class="register-rules">
 						</div>
 						<div class="register-form">

@@ -1,0 +1,84 @@
+{% extends 'UserAuth/index.html' %}
+{% load staticfiles %}
+{% block page-title %}
+<title>Profile | ABHISARGA 2K19</title>
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
+<script src="{% static 'assets/js/menu.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="bar">
+	<a href="{% url 'UserAuth:home' %}"><img src="{% static 'assets/img/default-logo.png' %}" alt="Abhisarga 2K19" id="bar-logo"></a>
+	<div id="menu" onclick="menuopen()">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	{% if request.user.is_authenticated %}
+	<div id="login">
+		<a href="{% url 'UserAuth:logout' %}">Log Out</a>
+	</div>
+	<div id="register">
+		<a href="{% url 'UserAuth:profile' %}">Profile</a>
+	</div>
+	{% else %}
+	<div id="register">
+		<a href="{% url 'UserAuth:user_registration' %}">REGISTER</a>
+	</div>
+	<div id="login">
+		<a href="{% url 'UserAuth:user_login' %}">LOGIN</a>
+	</div>
+	{% endif %}
+</div>
+<div id="profile-content">
+	<div id="account">
+	<div id="profile-image">
+		{% if request.user.profile_pic %}
+	  	<img src="{{ request.user.profile.url }}" alt="">
+		{% else %}
+		<img src="{% static 'assets/img/default-male.png' %}" alt="">
+		{% endif %}
+	</div>
+	<div id="profile-name">
+	  <!-- <img src="{% static 'assets/img/svg/edit.svg' %}" alt=""> -->
+	  {% if request.user.first_name %}
+	  	{{ request.user.first_name }}
+	  {% endif %}
+	</div>
+	<div id="profile-college">
+	  <!-- <img src="{% static 'assets/img/svg/edit.svg' %}" alt=""> -->
+	  {% if request.user.college_name %}
+	  {{ request.user.college_name }}
+	  {% endif %}
+	</div>
+	</div>
+	<div id="reg-events">
+	<h1>Enrolled Events</h1>
+	<ul>
+		{% for object in participated_events %}
+	  <li>
+	    <div class="single-reg-event">
+	      <h1><img src="{% static 'assets/img/svg/check.svg' %}" alt="">{{ object.event.name }}</h1>
+	      <img src="{% static 'assets/img/svg/dotline.svg' %}">
+	      <span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ object.event.event_from|date:"M d, Y" }}</span>
+	      <span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ object.event.prize }}</span>
+	      {% if object.event.team_event %}
+	      <span><img src="{% static 'assets/img/svg/group.svg' %}" alt="">{{ object.team.leader.team_name }} Members</span>
+	      <ul>
+	      	<li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{object.team.leader.leader.email}}</li>
+	      	{% for member in object.team.members %}
+	        <li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{member}}</li>
+	       	{% endfor %}
+	       </ul>
+	      {% endif %}
+	    </div>
+	  </li>
+	  	{% endfor %}
+	</ul>
+	</div>
+</div>
+{% endblock %}

@@ -10,10 +10,10 @@ from .models import EventCategory, Event, Team, Member
 
 def event(request):
 	event_template = 'Event/events.html'
-	event_cat = EventCategory.objects.all()
+	event_cat = EventCategory.objects.all().order_by("web_priority")
 	all_events = list()
 	for _ in event_cat:
-		events = Event.objects.filter(event_category__id=_.id)
+		events = Event.objects.filter(event_category__id=_.id).order_by("web_priority")
 		all_events.append({"category":_, "events":events})
 	try:
 		participated_events = Team.objects.filter(leader__username=request.user.username)

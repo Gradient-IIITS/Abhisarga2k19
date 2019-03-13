@@ -13,6 +13,8 @@ class EventCategory(models.Model):
 	category = models.CharField(max_length=100, null=True, blank=True)
 	image = models.ImageField(upload_to=get_event_category_photo_path, null=True, blank=True)
 	description = models.TextField()
+	web_priority = models.IntegerField(default=0)
+	app_priority = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.category
