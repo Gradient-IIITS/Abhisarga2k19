@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'abhisarga2k19.wsgi.application'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'abhisarga@iiits.in'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_PASSWORD = 'ffabkxogvkqczxth'
 EMAIL_PORT = 587
 
 
