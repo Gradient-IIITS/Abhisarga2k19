@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from UserAuth.models import User
-from Event.models import Event, Team, Member
+from Event.models import Event, Team, Member, EventCategory
 from .models import MessageToParticipant
-from .serializers import UserSerializer, EventSerializer, MessageSerializer
+from .serializers import UserSerializer, EventSerializer, MessageSerializer, EventCategorySerializer
 
 import json
 
@@ -22,12 +22,29 @@ class UserView(APIView):
 			return Response("User does not exists.")
 
 
+class EventCategoryView(APIView):
+	permission_classes = (AllowAny,)
+
+	def get(self, request, format=None):
+		try:
+			events = EventCategory.objects.all().order_by('app_priority')
+			serialized_events = EventCategorySerializer(events, many=True, context={"request":request})
+			return Response(serialized_events.data)
+		except Exception as e:
+			print(e)
+			return Response("Something went wrong.")
+
 class EventView(APIView):
 	permission_classes = (AllowAny,)
 
 	def get(self, request, format=None):
 		try:
-			events = Event.objects.all()
+			events = []
+			print (request.GET.get('category_id'))
+			if request.GET.get('category_id'):
+				events = Event.objects.filter(event_category__id=int(request.GET.get('category_id')))
+			else:
+				events = Event.objects.all()
 			serialized_events = EventSerializer(events, many=True, context={"request":request})
 			return Response(serialized_events.data)
 		except Exception as e:
@@ -103,14 +120,14 @@ class MessageFromTeamView(APIView):
 	permission_classes = (AllowAny,)
 	def get(self, request, format=None):
 		try:
-			message = MessageToParticipant.objects.all()
+			message = MessageToParticipant.objects.all()[0]
 			serialized_message = MessageSerializer(message, many=True)
 			return Response(serialized_message.data)
 		except Exception as e:
 			print(e)
-			return Response("Something went wrong.")
+			# return Response("Something went wrong.")
 
-			# return Response({'bold_heading': "Abhisarga starts in 29th March",
-			# 				'content': "Welcome to Abhisarga, 2k19. The annual cultural fest of IIIT Sri City. This years its bigger than ever.",
-			# 				"issued_by": "Bhavi Chawla",
-			# 				"sub_heading": "Message from the abhisarga team"})
+			return Response([{'bold_heading': "Abhisarga starts in 29th March",
+							'content': "Welcome to Abhisarga, 2k19. The annual cultural fest of IIIT Sri City. This years its bigger than ever.",
+							"issued_by": "Bhavi Chawla",
+							"sub_heading": "Message from the abhisarga team"}])
