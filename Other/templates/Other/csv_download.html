@@ -1,0 +1,11 @@
+<form action="{% url 'Other:csv_download' %}" method="post">
+	{% csrf_token %}
+	<label>Select Event</label>
+	<select name="id">
+		{% for event in events %}
+		<option value="{{event.id}}">{{event.name}}</option>
+		{% endfor %}
+	</select>
+	<br>
+	<button type="submit">Download</button>
+</form>

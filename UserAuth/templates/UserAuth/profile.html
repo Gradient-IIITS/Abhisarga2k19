@@ -71,12 +71,13 @@
 	      <ul>
 	      	<li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{object.team.leader.leader.email}}</li>
 	      	{% for member in object.team.members %}
-	        <li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{member}}</li>
+	        <li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{member.email}}</li>
 	       	{% endfor %}
 	       </ul>
 	      {% endif %}
 	    </div>
 	  </li>
+	  <br>
 	  	{% endfor %}
 	</ul>
 	</div>
