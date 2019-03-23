@@ -9,7 +9,7 @@ from .models import TeamCategory, Volunteer
 def contactUs(request):
 	if request.method == 'GET':
 		contact_page = 'Other/contact_page.html' 
-		return render(request, contact_page, {"objects":all_volunteer})
+		return render(request, contact_page)
 
 def sponsor(request):
 	if request.method == 'GET':
