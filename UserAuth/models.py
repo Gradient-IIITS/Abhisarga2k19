@@ -16,5 +16,7 @@ class User(AbstractUser):
 	activation_link = models.CharField(max_length=200, null=True, blank=True)
 	is_verified = models.BooleanField(default=False)
 
+	device_token = models.CharField(max_length=200, null=True, blank=True)
+
 	def __str__(self):
 		return str(self.username)	
