@@ -45,7 +45,7 @@ class Event(models.Model):
 	img_3 = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
 	img_4 = models.FileField(upload_to=get_event_photo_path, null=True, blank=True)
 
-
+	qr_code_string = models.CharField(max_length=100, null=True, blank=True)
 
 	def __str__(self):
 		teams=list()
@@ -58,6 +58,8 @@ class Team(models.Model):
 	team_name = models.CharField(max_length=50, null=True, blank=True)
 	event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="participating_events")
 	leader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="team_leader_of")
+	
+	present_for_event = models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.team_name) + ' - ' + str(self.event.name)
