@@ -122,3 +122,20 @@
 			</div>
     </div>
 {% endblock %}
+
+{% block popup %}
+	{% if message %}
+	<div id="popup">
+		<div onclick="document.getElementById('popup').style.display='none'">
+			<hr>
+			<hr>
+		</div>
+		<!-- <center><small>{{message.sub_heading}}</small></center> -->
+		<h1>{{message.bold_heading}}</h1>
+		<p>
+			{{message.content|linebreaksbr}}
+		</p>
+		&nbsp;-- {{message.issued_by}}
+	</div>
+	{% endif %}
+{% endblock %}

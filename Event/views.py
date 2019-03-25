@@ -15,6 +15,7 @@ def event(request):
 	for _ in event_cat:
 		events = Event.objects.filter(event_category__id=_.id).order_by("web_priority")
 		all_events.append({"category":_, "events":events})
+	part = list()
 	try:
 		participated_events = Team.objects.filter(leader__username=request.user.username)
 		part = list()
