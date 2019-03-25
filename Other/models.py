@@ -25,6 +25,8 @@ class Volunteer(models.Model):
 	facebook_link = models.CharField(max_length=200, null=True, blank=True)
 	instagram_link = models.CharField(max_length=200, null=True, blank=True)
 	linkedin_link = models.CharField(max_length=200, null=True, blank=True)
+	web_priority = models.IntegerField(default=0)
+	app_priority = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.name
