@@ -74,15 +74,9 @@
 				</div>
 
 				{% if event in participated_events %}
-				{% if event.team_event %}
 				<div class="b-link">
-					<a href="#">Registered</a>
+					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}" onclick="confirm('Are you sure you want to unregistered from this event?')">Registered</a>
 				</div>
-				{% else %}
-				<div class="b-link">
-					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
-				</div>
-				{% endif %}
 				{% else %}{% if event.team_event %}
 				<div class="b-link event-register">
 					Register
