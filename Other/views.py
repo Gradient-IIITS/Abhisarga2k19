@@ -20,7 +20,7 @@ def team(request):
 		category = TeamCategory.objects.all().order_by("web_priority")
 		all_volunteer = list()
 		for cat in category:
-			volunteers = Volunteer.objects.filter(category__id=cat.id)
+			volunteers = Volunteer.objects.filter(category__id=cat.id).order_by("web_priority")
 			all_volunteer.append({"category":cat, "volunteers":volunteers})
 		return render(request, 'Other/team.html', {"objects":all_volunteer})
 

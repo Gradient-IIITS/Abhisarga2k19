@@ -33,6 +33,8 @@ def some_streaming_csv_view(request):
             participants = Team.objects.filter(event__id=event.id)
             # print(participants)
             part_list = list()
+            part_list.append([event.name, len(participants)])
+            part_list.append([])
 
             if event.team_event:
                 for participant in participants:

@@ -65,7 +65,7 @@
 			</div>
 			<div class="event-details">
 				<p class="scrollbar">
-					{{ event.description }}
+					{{ event.description|linebreaksbr }}
 				</p>
 				<div class="s-info">
 					<img src="{% static 'assets/img/svg/design.svg' %}" alt="">
@@ -103,7 +103,7 @@
 					<h1>Rules and Regulations</h1>
 					<div class="modal-content">
 						<ul>
-							{{ event.rules|linebreaksbr }}
+							{{ event.rules|safe }}
 						</ul>
 					</div>
 				</div>
