@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.views import APIView
 from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework.response import Response
@@ -121,7 +121,7 @@ class MessageFromTeamView(APIView):
 	def get(self, request, format=None):
 		try:
 			message = MessageToParticipant.objects.all()[0]
-			serialized_message = MessageSerializer(message, many=True)
+			serialized_message = MessageSerializer(message, many=False)
 			return Response(serialized_message.data)
 		except Exception as e:
 			print(e)
@@ -131,3 +131,38 @@ class MessageFromTeamView(APIView):
 							'content': "Welcome to Abhisarga, 2k19. The annual cultural fest of IIIT Sri City. This years its bigger than ever.",
 							"issued_by": "Bhavi Chawla",
 							"sub_heading": "Message from the abhisarga team"}])
+
+
+class SaveDeviceTokenView(APIView):
+	permission_classes = (AllowAny,)
+	def post(self, request, format=None):
+		try:
+			print (request.user.username)
+			body = json.loads(request.body.decode('utf-8'))
+			device_token = body['device_token']
+			us = get_object_or_404(User, username=request.user.username)
+			us.device_token = device_token
+			us.save()
+			return Response(True)
+		except Exception as e:
+			print (e)
+			return Response(False)
+
+class MarkPresenceView(APIView):
+	permission_classes = (AllowAny,)
+	def post(self, request, format=None):
+		try:
+			body = json.loads(request.body.decode('utf-8'))
+			barcodeText = body['barcodeText']
+			# print(barcodeText, request.user.username, "request.user.username", request)
+			te = get_object_or_404(Team, event__qr_code_string=barcodeText, leader__username=request.user.username)
+			if te.present_for_event == False:
+				te.present_for_event = True
+				te.save()
+				return Response("Successfully Marked Present for event - " + str(te.event.name))
+			else:
+				return Response("You have already been marked present for the event - " + str(te.event.name))
+			# return Response(True)
+		except Exception as e:
+			print (e)
+			return Response("You have not registered for this event")
