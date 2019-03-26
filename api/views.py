@@ -166,3 +166,19 @@ class MarkPresenceView(APIView):
 		except Exception as e:
 			print (e)
 			return Response("You have not registered for this event")
+
+class ScheduleView(APIView):
+	permission_classes = (AllowAny,)
+	def get(self, request, format=None):
+		try:
+			events = Event.objects.all().order_by('event_from')
+			serialized_events = EventSerializer(events, many=True, context={"request":request})
+			return Response(serialized_events.data)
+			# 
+			# return Response(serialized_message.data)
+		except Exception as e:
+			print(e)
+			# return Response("Something went wrong.")
+
+			return Response(str(e))
+
