@@ -77,18 +77,20 @@ class RegisterForTeamEventView(APIView):
 			event_id = body['event_id']
 			form = body['form']
 			print('form, event_id', form, event_id)
+			event = Event.objects.get(id=event_id)
+			if not event.registration_closed and not event.registration_full:
+				team = Team()
+				team.team_name = form['team_name']
+				team.event = event
+				team.leader = request.user
+				team.save()
 
-			team = Team()
-			team.team_name = form['team_name']
-			team.event = Event.objects.get(id=event_id)
-			team.leader = request.user
-			team.save()
-
-			for key in form.keys():
-				if key != "team_name" and key != "leader":
-					print ("key, form[key]", key, form[key])
-					member = Member.objects.create(team=team, name=form[key], email=form[key])
-			return Response(True)
+				for key in form.keys():
+					if key != "team_name" and key != "leader":
+						print ("key, form[key]", key, form[key])
+						member = Member.objects.create(team=team, name=form[key], email=form[key])
+				return Response(True)
+			return Response(False)
 		except Exception as e:
 			print (e)
 			return Response(False)
@@ -101,10 +103,11 @@ class RegisterForSingleEventView(APIView):
 			body = json.loads(request.body.decode('utf-8'))
 			event_id = body['event_id']
 			check = Team.objects.filter(leader__username=request.user.username, event__id=event_id)
-			if len(check)==0:
+			event = Event.objects.get(id=event_id)
+			if len(check)==0 and not event.registration_closed and not event.registration_full:
 				team = Team()
 				team.team_name = request.user.username
-				team.event = Event.objects.get(id=event_id)
+				team.event = event
 				team.leader = request.user
 				team.save()
 			else:
