@@ -124,18 +124,25 @@
 {% endblock %}
 
 {% block popup %}
-	{% if message %}
+	{% if messages %}
 	<div id="popup">
-		<div onclick="document.getElementById('popup').style.display='none'">
+		<div onclick="closepop()" id="cross">
 			<hr>
 			<hr>
 		</div>
-		<!-- <center><small>{{message.sub_heading}}</small></center> -->
-		<h1>{{message.bold_heading}}</h1>
-		<p>
-			{{message.content|linebreaksbr}}
-		</p>
-		&nbsp;-- {{message.issued_by}}
+		{% for message in messages %}
+		{% if forloop.counter0 == 0 %}
+		<div class="popmessage popactive">
+		{% else %}
+		<div class="popmessage">
+		{% endif %}
+			<h1>{{message.bold_heading}}</h1>
+			<p>
+				{{message.content|linebreaksbr}}
+			</p>
+			<em> -- {{message.issued_by}} </em>
+		</div>
+		{% endfor %}
 	</div>
 	{% endif %}
 {% endblock %}

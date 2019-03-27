@@ -85,6 +85,9 @@
 				<div class="b-link">
 					<a onclick="return confirm('Are you sure you want to deregister from this event?')" href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
 				</div>
+				<!-- <div class="b-link event-register">
+					Edit Team
+				</div> -->
 				{% else %}{% if event.team_event and request.user.is_authenticated %}
 				<div class="b-link event-register">
 					Register
@@ -114,7 +117,7 @@
 					</div>
 				</div>
 			</div>
-			{% if event.team_event %}
+			{% if event.team_event and not event in participated_events %}
 			<div class="modal modal-register" style="display: none;">
 				<div class="modal-container scrollbar">
 					<div class="modal-close">
@@ -166,6 +169,72 @@
 					</div>
 				</div>
 			</div>
+			{% elif event in participated_events %}
+			{% for team in teams %}
+			{% if team.event.id == event.id %}
+			<div class="modal modal-register" style="display: none;">
+				<div class="modal-container scrollbar">
+					<div class="modal-close">
+					</div>
+					<h1>{{ event.name }} Registration</h1>
+					<div class="modal-content">
+						<div class="register-rules">
+						</div>
+						<div class="register-form">
+							<form action="{% url 'Event:eventTeamEdit' %}" method="post">
+								{% csrf_token %}
+								<input type="hidden" name="event_id" value="{{ event.id }}">
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Team Name" name="team_name" required="" value="{{team.team_name}}">
+							        </div>
+								</div>
+								<br>
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name" value="{{team.leader.username}}" readonly="" name="leader_name">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail" value="{{ team.leader.email }}" readonly="" name="leader_email">
+							        </div>
+								</div>
+								{% for member in team.belong_to_team.all %}
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name(Optional)" name="name[]" value="{{ member.name }}">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail(Optional)" name="email[]" value="{{ member.email }}">
+							        </div>
+								</div>
+								{% endfor %}
+								{% with ''|center:event.participant_count as range %}
+								{% for _ in range %}
+								{% if forloop.counter0 > team.belong_to_team.all|length %}
+								<div>
+									<div class="one-field">
+							            <label for="name"><img src="{% static 'assets/img/svg/name.svg' %}" alt=""></label><input type="text" placeholder="Name(Optional)" name="name[]">
+							        </div>
+							        <div class="one-field">
+							        	<label for="email"><img src="{% static 'assets/img/svg/email.svg' %}" alt=""></label><input type="email" placeholder="E-mail(Optional)" name="email[]">
+							        </div>
+								</div>
+								{% endif %}
+								{% endfor %}
+								{% endwith %}
+			          			<div>
+									<input type="checkbox" name="agree" style="display:none" class="register-agree"><span><span class="register-checkbox">&#10004;</span>I agree to the terms and condition.</span>
+			          			</div>
+								<div>
+			            			<button type="submit">Submit</button>
+			          			</div>
+			        		</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
 			{% endif %}
 		</div>
 		{% endfor %}

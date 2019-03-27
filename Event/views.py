@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .models import EventCategory, Event, Team, Member
+from UserAuth.models import User
 # Create your views here.
 
 def event(request):
@@ -16,19 +17,22 @@ def event(request):
 		events = Event.objects.filter(event_category__id=_.id).order_by("web_priority")
 		all_events.append({"category":_, "events":events})
 	part = list()
+	teams = list()
 	try:
 		participated_events = Team.objects.filter(leader__username=request.user.username)
 		part = list()
 		for obj in participated_events:
 			part.append(obj.event)
+			teams.append(obj)
 
 		participated_events = Member.objects.filter(email=request.user.email)
 		for obj in participated_events:
 			part.append(obj.team.event)
+			teams.append(obj.team)
 	except Exception as e:
 		pass	
 	# print(part)
-	return render(request, event_template, {"event_category":event_cat, "all_events":all_events, "participated_events":part})
+	return render(request, event_template, {"event_category":event_cat, "all_events":all_events, "participated_events":part, "teams":teams})
 
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def eventRegistration(request):
@@ -90,3 +94,30 @@ def teamEventRegistration(request):
 				return HttpResponseRedirect(reverse('Event:events'))
 		return HttpResponseRedirect(reverse('Event:events'))
 	pass
+
+@login_required(login_url=settings.LOGIN_REDIRECT_URL)
+def eventTeamEdit(request):
+	if request.method == 'POST':
+		leader_email = request.POST.get('leader_email')
+		event_id = request.POST.get('event_id')
+		team_name = request.POST.get('team_name')
+		names = request.POST.getlist('name[]')
+		emails = request.POST.getlist('email[]')
+
+		try:
+			team = Team.objects.get(event__id=event_id, leader__email=leader_email)
+			team.delete()
+
+			team = Team()
+			team.team_name = team_name
+			team.event = Event.objects.get(id=event_id)
+			team.leader = User.objects.get(email=leader_email)
+			team.save()
+
+			for name, email in zip(names, emails):
+				if name or email:
+					member = Member.objects.create(team=team, name=name, email=email)
+					member.save()
+		except Exception as e:
+			print(e)
+		return HttpResponseRedirect(reverse('Event:events'))

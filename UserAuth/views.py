@@ -19,8 +19,9 @@ def home(request):
 	home_page = 'UserAuth/main.html'
 	event_cat = EventCategory.objects.all().order_by("web_priority")
 	events = Event.objects.all().order_by("web_priority")
-	message = MessageToParticipant.objects.all().order_by("-id")
-	return render(request, home_page, {"event_category":event_cat, "events":events, "message":message[0] if message else ""})
+	messages = MessageToParticipant.objects.all().order_by("-id")[:3]
+	print(messages)
+	return render(request, home_page, {"event_category":event_cat, "events":events, "messages":messages})
 
 class UserRegistrationView(View):
 	signup_template = 'UserAuth/register.html'
