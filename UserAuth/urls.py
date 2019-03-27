@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import UserRegistrationView, UserLoginView, activate_account, logout_view, home, Profile
+from .views import UserRegistrationView, UserLoginView, activate_account, logout_view, home, Profile, ForgotPasswordView
 
 app_name = "UserAuth"
 
@@ -9,5 +9,6 @@ urlpatterns = [
 	url(r'^logout/$', logout_view, name='logout'),
 	url(r'^signin/$', UserLoginView.as_view(), name='user_login'),
 	url(r'^profile/$', Profile, name='profile'),
+	url(r'^forgot_password/$', ForgotPasswordView.as_view(), name='forgot_password'),
 	url(r'^activate_account/(?P<url>[0-9a-zA-z]+)/$', activate_account, name='activate_account'),
 	]

@@ -32,3 +32,7 @@ def team(request):
 def schedule(request):
 	if request.method == 'GET':
 		return render(request, 'Other/schedule.html')
+
+def app_privacy_policy(request):
+	if request.method == 'GET':
+		return render(request, 'Other/privacy.html')
