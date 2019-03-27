@@ -42,7 +42,7 @@ def eventRegistration(request):
 
 		if request.user.is_authenticated and not event.registration_closed:
 			check = Team.objects.filter(leader__username=request.user.username, event__id=event_id)
-			if len(check)==0:
+			if len(check)==0 and len(Team.objects.filter(event__id=event.id)) < event.participant_limit:
 				team = Team()
 				team.team_name = request.user.username
 				team.event = event
@@ -71,8 +71,8 @@ def teamEventRegistration(request):
 		except Exception as e:
 			print(e)
 			return HttpResponseRedirect(reverse('Event:events'))
-
-		if not event.registration_closed:
+		# print(len(Team.objects.filter(event__id=event.id)), event.participant_limit)
+		if not event.registration_closed and len(Team.objects.filter(event__id=event.id)) <	 event.participant_limit:
 			try:
 				if request.user.is_authenticated and team_name and event_id:
 					team = Team()

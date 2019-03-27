@@ -164,3 +164,47 @@ class ForgotPasswordView(View):
 
 	def get(self, request, *args, **kwargs):
 		return render(request, self.template)
+
+	def post(self, request, *args, **kwargs):
+		email = request.POST.get('email')
+		try:
+			user = User.objects.get(email=email)
+			url = get_random_string(150)
+			absolute_url = request.build_absolute_uri(url)
+			activation_url = absolute_url.replace("forgot_password", "reset_password")
+			user.activation_link = url
+			user.save()
+			try:
+				thread_process = threading.Thread(target=send_email, kwargs={
+					"subject":"Abhisarga Account Password Reset",
+					"to_email":user.email,
+					"text_content":"",
+					"html_content": render_to_string('UserAuth/forgot_password_template.html', {"user_fullname":str(user.first_name)+" "+str(user.last_name), "link":activation_url})
+					})
+				thread_process.start()
+			except Exception as e:
+				print(e)
+			return render(request, self.template, {"message":"Password reset link is sent to your email. Please check your email."})
+		except Exception as e:
+			print(e)
+			return render(request, self.template, {"message":"Wrong email address."})
+
+
+def resetPassword(request, url):
+	if request.method == 'GET':
+		return render(request, "UserAuth/reset_password.html", {"url":url})
+
+	if request.method == 'POST':
+		reset_link = url
+		password = request.POST.get('password')
+		try:
+			user = User.objects.get(activation_link=reset_link)
+			# print(user)
+			if password:
+				user.set_password(password)
+				user.activation_url=""
+				user.save()
+			return HttpResponseRedirect(reverse('UserAuth:user_login'))
+		except Exception as e:
+			print(e)
+			return render(request, "UserAuth/forgot_password.html", {"message":"Password reset link expired. Please try again."})
