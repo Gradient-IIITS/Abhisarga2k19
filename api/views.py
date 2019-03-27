@@ -120,7 +120,7 @@ class MessageFromTeamView(APIView):
 	permission_classes = (AllowAny,)
 	def get(self, request, format=None):
 		try:
-			message = MessageToParticipant.objects.all()[0]
+			message = MessageToParticipant.objects.all().order_by('-id')[0]
 			serialized_message = MessageSerializer(message, many=False)
 			return Response(serialized_message.data)
 		except Exception as e:
