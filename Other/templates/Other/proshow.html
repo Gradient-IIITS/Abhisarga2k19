@@ -2,11 +2,11 @@
 {% load staticfiles %}
 
 {% block page-title %}
-	<title>Sponsors | Abhisarga 2k19</title>
+	<title>Proshows | Abhisarga 2k19</title>
 {% endblock %}
 
 {% block link %}
-<link rel="stylesheet" type="text/css" href="{% static 'assets/css/sponsor.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/proshow.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
 <script src="{% static 'assets/js/menu.js' %}"></script>
 {% endblock %}
@@ -35,12 +35,7 @@
 	</div>
 	{% endif %}
 </div>
-{% for sponsor in sponsors %}
-<div class="sponsorblock">
-  <h1>{{ sponsor.name }}</h1>
-  <div>
-    <a href="{{ sponsor.website }}" target="_blank"><img src="{{ sponsor.logo.url }}"></a>
-  </div>
+<div id="proposter">
+    <img src="{% static 'assets/img/proshow.png' %}" alt="Prowshow">
 </div>
-{% endfor %}
 {% endblock %}

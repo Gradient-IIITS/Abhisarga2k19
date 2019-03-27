@@ -57,6 +57,9 @@ def eventRegistration(request):
 
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def teamEventRegistration(request):
+	if request.method == 'GET':
+		return HttpResponseRedirect(reverse('Event:events'))
+
 	if request.method == 'POST':
 		team_name = request.POST.get('team_name')
 		event_id = request.POST.get('event_id')

@@ -75,16 +75,20 @@
 
 				{% if event in participated_events %}
 				<div class="b-link">
-					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}" onclick="confirm('Are you sure you want to unregistered from this event?')">Registered</a>
+					<a onclick="return confirm('Are you sure you want to deregister from this event?')" href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
 				</div>
-				{% else %}{% if event.team_event %}
+				{% else %}{% if event.team_event and request.user.is_authenticated %}
 				<div class="b-link event-register">
 					Register
 				</div>
+				{% elif event.team_event and not request.user.is_authenticated %}
+				<div class="b-link">
+					<a href="{% url 'Event:teamEventRegistration' %}">Register</a>
+				</div>
 				{% else %}
-					<div class="b-link">
-						<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Register</a>
-					</div>
+				<div class="b-link">
+					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Register</a>
+				</div>
 				{% endif %}{% endif %}
 				<div class="b-link event-rules">
 					Rules

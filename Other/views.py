@@ -3,7 +3,7 @@ from django.views import View
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
 
-from .models import TeamCategory, Volunteer
+from .models import TeamCategory, Volunteer, Sponsor
 # Create your views here.
 
 def contactUs(request):
@@ -13,7 +13,12 @@ def contactUs(request):
 
 def sponsor(request):
 	if request.method == 'GET':
-		return render(request, 'Other/sponsor.html')
+		sponsors = Sponsor.objects.all().order_by("web_priority")
+		return render(request, 'Other/sponsor.html', {"sponsors":sponsors})
+
+def proshow(request):
+	if request.method == 'GET':
+		return render(request, 'Other/proshow.html')
 
 def team(request):
 	if request.method == 'GET':
@@ -27,3 +32,7 @@ def team(request):
 def schedule(request):
 	if request.method == 'GET':
 		return render(request, 'Other/schedule.html')
+
+def app_privacy_policy(request):
+	if request.method == 'GET':
+		return render(request, 'Other/privacy.html')

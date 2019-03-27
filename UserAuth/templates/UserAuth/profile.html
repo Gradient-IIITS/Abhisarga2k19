@@ -75,6 +75,7 @@
 	       	{% endfor %}
 	       </ul>
 	      {% endif %}
+	      <button class="deregister" onclick="deregister_event('{{object.event.id}}')">De Register</button>
 	    </div>
 	  </li>
 	  <br>
@@ -82,4 +83,11 @@
 	</ul>
 	</div>
 </div>
+<script type="text/javascript">
+	function deregister_event(event_id){
+		if(confirm('Are you sure you want to deregister from this event?')){
+			window.location.href='{% url 'Event:eventRegistration' %}?event_id='+event_id;
+		}
+	}
+</script>
 {% endblock %}

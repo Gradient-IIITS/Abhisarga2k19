@@ -157,3 +157,10 @@ def activate_account(request, url):
 		return HttpResponseRedirect(reverse('UserAuth:user_login'))
 	except Exception as e:
 		return HttpResponseRedirect(reverse('UserAuth:user_login'))
+
+
+class ForgotPasswordView(View):
+	template = "UserAuth/forgot_password.html"
+
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template)
