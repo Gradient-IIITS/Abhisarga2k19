@@ -60,26 +60,25 @@
 	<h1>Enrolled Events</h1>
 	<ul>
 		{% for object in participated_events %}
-	  <li>
-	    <div class="single-reg-event">
-	      <h1><img src="{% static 'assets/img/svg/check.svg' %}" alt="">{{ object.event.name }}</h1>
-	      <img src="{% static 'assets/img/svg/dotline.svg' %}">
-	      <span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ object.event.event_from|date:"M d, Y" }}</span>
-	      <span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ object.event.prize }}</span>
-	      {% if object.event.team_event %}
-	      <span><img src="{% static 'assets/img/svg/group.svg' %}" alt="">{{ object.team.leader.team_name }} Members</span>
-	      <ul>
-	      	<li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{object.team.leader.leader.email}}</li>
-	      	{% for member in object.team.members %}
-	        <li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{member.email}}</li>
-	       	{% endfor %}
-	       </ul>
-	      {% endif %}
-	      <button class="deregister" onclick="deregister_event('{{object.event.id}}')">De Register</button>
-	      <button class="deregister" onclick="deregister_event('{{object.event.id}}')">Edit</button>
-	    </div>
-	  </li>
-	  <br>
+		  <li>
+		    <div class="single-reg-event">
+		      <h1><img src="{% static 'assets/img/svg/check.svg' %}" alt="">{{ object.event.name }}</h1>
+		      <img src="{% static 'assets/img/svg/dotline.svg' %}">
+		      <span><img src="{% static 'assets/img/svg/calender.svg' %}" alt="">{{ object.event.event_from|date:"M d, Y" }}</span>
+		      <span><img src="{% static 'assets/img/svg/rupee.svg' %}" alt="">{{ object.event.prize }}</span>
+		      {% if object.event.team_event %}
+		      <span><img src="{% static 'assets/img/svg/group.svg' %}" alt="">{{ object.team.leader.team_name }} Members</span>
+		      <ul>
+		      	<li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{object.team.leader.leader.email}}</li>
+		      	{% for member in object.team.members %}
+		        <li><img src="{% static 'assets/img/svg/circlebullet.svg' %}" alt="">{{member.email}}</li>
+		       	{% endfor %}
+		       </ul>
+		      {% endif %}
+		      <button class="deregister" onclick="deregister_event('{{object.event.id}}')">De Register</button>
+		    </div>
+		  </li>
+		  <br>
 	  	{% endfor %}
 	</ul>
 	</div>

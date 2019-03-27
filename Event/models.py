@@ -47,6 +47,11 @@ class Event(models.Model):
 
 	qr_code_string = models.CharField(max_length=100, null=True, blank=True)
 
+	@property
+	def registration_full(self):
+		teams = Team.objects.filter(event__id=self.id)
+		return False if len(teams) < self.participant_limit else True
+
 	def __str__(self):
 		teams=list()
 		if self.id:

@@ -77,6 +77,10 @@
 				<div class="b-link">
 					<a href="javascript:function() { return false; }">Registration Closed</a>
 				</div>
+				{% elif event.registration_full %}
+				<div class="b-link">
+					<a href="javascript:function() { return false; }">Registration Full</a>
+				</div>
 				{% elif event in participated_events %}
 				<div class="b-link">
 					<a onclick="return confirm('Are you sure you want to deregister from this event?')" href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
