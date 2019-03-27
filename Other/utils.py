@@ -18,7 +18,12 @@ class Echo:
 @login_required(login_url=settings.LOGIN_REDIRECT_URL)
 def some_streaming_csv_view(request):
     if request.user.is_superuser:
-        if request.method == "GET":
+        if request.method == "GET" and request.GET.get("event_id"):
+            event = Event.objects.get(id=request.GET.get("event_id"))
+            teams = Team.objects.filter(event__id=event.id)
+            return render(request, "Other/event_data.html", {"event":event, "teams":teams})
+
+        elif request.method == "GET":
             events = Event.objects.all()
             return render(request, "Other/csv_download.html", {"events": events})
         
@@ -43,11 +48,12 @@ def some_streaming_csv_view(request):
                     row.append(participant.leader.first_name)
                     row.append(participant.leader.mobile_no)
                     row.append(participant.leader.college_name)
+                    row.append("Present" if participant.present_for_event else "A")
                     part_list.append(row)
                     row = list()
                     for member in participant.belong_to_team.all():
                         row.append(member.name)
-                        row.append(member.mobile_no)
+                        row.append(member.email)
                     part_list.append(row)
                     part_list.append([])
 
@@ -69,7 +75,7 @@ def some_streaming_csv_view(request):
                     row = list()
                     for member in participant.belong_to_team.all():
                         row.append(member.name)
-                        row.append(member.mobile_no)
+                        row.append(member.email)
                     part_list.append(row)
                     part_list.append([])
 

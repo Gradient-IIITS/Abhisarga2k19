@@ -1,11 +1,22 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function loadData(){
+		event_id = document.getElementById("select_event").value;
+		$("#load_data").html( 'Loading....' ).load( '{% url 'Other:csv_download' %}?event_id=' + event_id );
+		console.log(event_id);
+	}
+</script>
 <form action="{% url 'Other:csv_download' %}" method="post">
 	{% csrf_token %}
 	<label>Select Event</label>
-	<select name="id">
+	<select name="id" onchange="loadData()" id="select_event">
 		{% for event in events %}
 		<option value="{{event.id}}">{{event.name}}</option>
 		{% endfor %}
 	</select>
 	<br>
 	<button type="submit">Download</button>
+	<div id="load_data">
+		
+	</div>
 </form>

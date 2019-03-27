@@ -1,0 +1,12 @@
+<h3>{{event}}</h3><br>
+
+{% for team in teams %}
+	<h4>Team Name : {{team.team_name}}</h4>
+	<ul>
+		<li>{{team.leader.first_name}} {{team.leader.last_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{team.leader.mobile_no}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{team.leader.college_name}}</li>
+		{% for member in team.belong_to_team.all %}
+		<li>{{member.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{member.email}}</li>
+		{% endfor %}
+	</ul>
+	<br><br>
+{% endfor %}
