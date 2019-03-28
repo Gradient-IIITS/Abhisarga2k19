@@ -35,12 +35,18 @@
 	</div>
 	{% endif %}
 </div>
-{% for sponsor in sponsors %}
-<div class="sponsorblock">
-  <h1>{{ sponsor.name }}</h1>
-  <div>
-    <a href="{{ sponsor.website }}" target="_blank"><img src="{{ sponsor.logo.url }}"></a>
-  </div>
+{% for obj in all_sponsors %}
+<div class="sponsorcategory">
+	<h1>{{ obj.category.name }}</h1>
+	{% for sponsor in obj.sponsors %}
+	<div class="sponsorblock">
+	  <h1>{{ sponsor.name }}</h1>
+	  <div>
+	    <a href="{{ sponsor.website }}"><img src="{{ sponsor.logo.url }}"></a>
+	  </div>
+	</div>
+	{% endfor %}
 </div>
 {% endfor %}
+
 {% endblock %}

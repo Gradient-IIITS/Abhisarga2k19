@@ -35,7 +35,16 @@ class Volunteer(models.Model):
 		return self.name
 
 
+class SponsorCategory(models.Model):
+	name = models.CharField(max_length=200, null=True, blank=True)
+	web_priority = models.IntegerField(default=0)
+	app_priority = models.IntegerField(default=0)
+
+	def __str__(self):
+		return self.name
+
 class Sponsor(models.Model):
+	category = models.ForeignKey(SponsorCategory, on_delete=models.CASCADE, related_name="sponsor_names")
 	name = models.CharField(max_length=100, null=True, blank=True)
 	website = models.CharField(max_length=100, null=True, blank=True)
 	logo = models.ImageField(upload_to=get_sponsor_path, null=True, blank=True)

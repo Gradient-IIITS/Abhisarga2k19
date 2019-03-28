@@ -3,7 +3,7 @@ from django.views import View
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
 
-from .models import TeamCategory, Volunteer, Sponsor
+from .models import TeamCategory, Volunteer, Sponsor, SponsorCategory
 # Create your views here.
 
 def contactUs(request):
@@ -13,8 +13,12 @@ def contactUs(request):
 
 def sponsor(request):
 	if request.method == 'GET':
-		sponsors = Sponsor.objects.all().order_by("web_priority")
-		return render(request, 'Other/sponsor.html', {"sponsors":sponsors})
+		category = SponsorCategory.objects.all().order_by("web_priority")
+		all_sponsors = list()
+		for cat in category:
+			sponsors = Sponsor.objects.filter(category__id=cat.id).order_by("web_priority")
+			all_sponsors.append({"category":cat, "sponsors":sponsors})
+		return render(request, 'Other/sponsor.html', {"all_sponsors":all_sponsors})
 
 def proshow(request):
 	if request.method == 'GET':
