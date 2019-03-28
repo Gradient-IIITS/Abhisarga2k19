@@ -48,20 +48,21 @@ def some_streaming_csv_view(request):
                     row.append(participant.leader.first_name)
                     row.append(participant.leader.mobile_no)
                     row.append(participant.leader.college_name)
-                    row.append("Present" if participant.present_for_event else "A")
+                    row.append("Present" if participant.present_for_event else "")
                     part_list.append(row)
-                    row = list()
+                    
                     for member in participant.belong_to_team.all():
+                        row = list()
                         row.append(member.name)
                         row.append(member.email)
                         part_list.append(row)
                     part_list.append([])
 
 
-                rows = (row for row in part_list)
+                # rows = (row for row in part_list)
                 pseudo_buffer = Echo()
                 writer = csv.writer(pseudo_buffer)
-                response = StreamingHttpResponse((writer.writerow(row) for row in rows),
+                response = StreamingHttpResponse((writer.writerow(row) for row in part_list),
                                                  content_type="text/csv")
                 response['Content-Disposition'] = 'attachment; filename="'+ str(event.name) +'-participant.csv"'
                 return response
@@ -72,18 +73,19 @@ def some_streaming_csv_view(request):
                     row.append(participant.leader.mobile_no)
                     row.append(participant.leader.college_name)
                     part_list.append(row)
-                    row = list()
+
                     for member in participant.belong_to_team.all():
+                        row = list()
                         row.append(member.name)
                         row.append(member.email)
                         part_list.append(row)
                     part_list.append([])
 
 
-                rows = (row for row in part_list)
+                # rows = (row for row in part_list)
                 pseudo_buffer = Echo()
                 writer = csv.writer(pseudo_buffer)
-                response = StreamingHttpResponse((writer.writerow(row) for row in rows),
+                response = StreamingHttpResponse((writer.writerow(row) for row in part_list),
                                                  content_type="text/csv")
                 response['Content-Disposition'] = 'attachment; filename="'+ str(event.name) +'-participant.csv"'
                 return response
