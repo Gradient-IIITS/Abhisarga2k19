@@ -54,7 +54,7 @@ def some_streaming_csv_view(request):
                     for member in participant.belong_to_team.all():
                         row.append(member.name)
                         row.append(member.email)
-                    part_list.append(row)
+                        part_list.append(row)
                     part_list.append([])
 
 
@@ -76,7 +76,7 @@ def some_streaming_csv_view(request):
                     for member in participant.belong_to_team.all():
                         row.append(member.name)
                         row.append(member.email)
-                    part_list.append(row)
+                        part_list.append(row)
                     part_list.append([])
 
 
