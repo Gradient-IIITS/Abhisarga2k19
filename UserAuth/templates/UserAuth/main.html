@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/objects.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/common.css' %}">
 <script src="{% static 'assets/js/menu.js' %}"></script>
-<script src="{% static 'assets/js/events.js' %}"></script>
+<script src="{% static 'assets/js/index.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -126,10 +126,6 @@
 {% block popup %}
 	{% if messages %}
 	<div id="popup">
-		<div onclick="closepop()" id="cross">
-			<hr>
-			<hr>
-		</div>
 		{% for message in messages %}
 		{% if forloop.counter0 == 0 %}
 		<div class="popmessage popactive">
@@ -143,6 +139,14 @@
 			<em> -- {{message.issued_by}} </em>
 		</div>
 		{% endfor %}
+		<div onclick="closepop()" id="cross" title="Close">
+			<hr>
+			<hr>
+		</div>
+		<div id="next" title="Next">
+			<hr>
+			<hr>
+		</div>
 	</div>
 	{% endif %}
 {% endblock %}

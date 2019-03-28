@@ -85,9 +85,6 @@
 				<div class="b-link">
 					<a onclick="return confirm('Are you sure you want to deregister from this event?')" href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Registered</a>
 				</div>
-				<!-- <div class="b-link event-register">
-					Edit Team
-				</div> -->
 				{% else %}{% if event.team_event and request.user.is_authenticated %}
 				<div class="b-link event-register">
 					Register
@@ -101,6 +98,11 @@
 					<a href="{% url 'Event:eventRegistration' %}?event_id={{event.id}}">Register</a>
 				</div>
 				{% endif %}{% endif %}
+				{% if event in participated_events and event.team_event %}
+				<div class="b-link event-team">
+					Team
+				</div>
+				{% endif %}
 				<div class="b-link event-rules">
 					Rules
 				</div>
@@ -158,9 +160,9 @@
 								{% endif %}
 								{% endfor %}
 								{% endwith %}
-			          			<div>
+			          			<!-- <div>
 									<input type="checkbox" name="agree" style="display:none" class="register-agree"><span><span class="register-checkbox">&#10004;</span>I agree to the terms and condition.</span>
-			          			</div>
+			          			</div> -->
 								<div>
 			            			<button type="submit">Register Me</button>
 			          			</div>
@@ -172,7 +174,7 @@
 			{% elif event in participated_events %}
 			{% for team in teams %}
 			{% if team.event.id == event.id %}
-			<div class="modal modal-register" style="display: none;">
+			<div class="modal modal-team" style="display: none;">
 				<div class="modal-container scrollbar">
 					<div class="modal-close">
 					</div>
@@ -222,9 +224,9 @@
 								{% endif %}
 								{% endfor %}
 								{% endwith %}
-			          			<div>
+			          			<!-- <div>
 									<input type="checkbox" name="agree" style="display:none" class="register-agree"><span><span class="register-checkbox">&#10004;</span>I agree to the terms and condition.</span>
-			          			</div>
+			          			</div> -->
 								<div>
 			            			<button type="submit">Submit</button>
 			          			</div>

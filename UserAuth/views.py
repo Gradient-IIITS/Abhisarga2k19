@@ -20,7 +20,7 @@ def home(request):
 	event_cat = EventCategory.objects.all().order_by("web_priority")
 	events = Event.objects.all().order_by("web_priority")
 	messages = MessageToParticipant.objects.all().order_by("-id")[:3]
-	print(messages)
+	# print(messages)
 	return render(request, home_page, {"event_category":event_cat, "events":events, "messages":messages})
 
 class UserRegistrationView(View):
