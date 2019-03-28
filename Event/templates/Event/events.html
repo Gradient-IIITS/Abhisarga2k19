@@ -75,11 +75,11 @@
 
 				{% if event.registration_closed %}
 				<div class="b-link">
-					<a href="javascript:function() { return false; }">Registration Closed</a>
+					<a href="javascript:function() { return false; }">Closed</a>
 				</div>
 				{% elif event.registration_full %}
 				<div class="b-link">
-					<a href="javascript:function() { return false; }">Registration Full</a>
+					<a href="javascript:function() { return false; }">We're Full</a>
 				</div>
 				{% elif event in participated_events %}
 				<div class="b-link">
